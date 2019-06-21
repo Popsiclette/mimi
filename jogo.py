@@ -324,7 +324,7 @@ def jogo(janela):
     cao = Sprite("images/dogesq.png", 8)
     carne = Sprite("images/chicken.png")
     lua = Sprite("images/lua.png")
-
+    bueiro = Sprite("images/bueiroegeiser.png", 11)
     cao.set_total_duration(1000)
     mimi.set_total_duration(1000)
     animated = [cao, bombardeiro]
@@ -411,6 +411,10 @@ def jogo(janela):
         filhotes[i].x = mimi.x + 50
         filhotes[i].y = mimi.y + 15
         filhotes[i].set_total_duration(1000)
+
+    bueiro.x = mimi.x + 150
+    bueiro.y = mimi.y - 120
+    bueiro.set_total_duration(1000)
 
     while True:
 
@@ -504,6 +508,9 @@ def jogo(janela):
             tempo_car = 0
             rand_car = uniform(2, 6)
             escondido = True
+
+        bueiro.draw()
+        bueiro.update()
 
     #    mov_cenario(mimi, teclado, static, animated, buildings, carnes, speed, janela)
 
