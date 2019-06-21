@@ -577,7 +577,7 @@ def jogo(janela):
             if imune is False:
                 gatescondido = colisao_bueiro(bueiro, mimi)
 
-        if parar_bueiro >= 2 and colidirbueiro is True:
+        if parar_bueiro >= 1 and colidirbueiro is True:
             parar_bueiro = 0
             aux = bueiro.x
             auy = bueiro.y
