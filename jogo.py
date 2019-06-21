@@ -309,6 +309,41 @@ def mov_filhotes(filhotes):
             filhotes[i+2] *= -1
     return filhotes
 
+
+def tremebueiro(bueiro):
+    aux = bueiro.x
+    auy = bueiro.y
+    bueiro = Sprite("images/bueirotreme.png", 8)
+    bueiro.x = aux
+    bueiro.y = auy
+    bueiro.set_total_duration(250)
+
+    return bueiro
+
+
+def explodebueiro(bueiro):
+    aux = bueiro.x
+    auy = bueiro.y
+    bueiro = Sprite("images/bueiroegeiser.png", 11)
+    bueiro.x = aux
+    bueiro.y = auy - 130
+    bueiro.set_total_duration(1000)
+
+    return bueiro
+
+
+def colisao_bueiro(bueiro, mimi):
+    global vidas, imune
+    if mimi.collided(bueiro):
+            vidas -= 1
+            if vidas >= 0:
+                imune = True
+                return True
+            else:
+                derrota()
+    return False
+
+
 def jogo(janela):
     global pulo, chao, predio, imune, vidas
 
@@ -324,7 +359,7 @@ def jogo(janela):
     cao = Sprite("images/dogesq.png", 8)
     carne = Sprite("images/chicken.png")
     lua = Sprite("images/lua.png")
-    bueiro = Sprite("images/bueirotreme.png", 8)
+    bueiro = Sprite("images/bueiroparado.png", 1)
     cao.set_total_duration(1000)
     mimi.set_total_duration(1000)
     animated = [cao, bombardeiro]
@@ -380,6 +415,7 @@ def jogo(janela):
         buildings.append(Sprite(level[i][0]))
         buildings[i].x = level[i][1]
         buildings[i].y = janela.height - 61 - buildings[i].height
+
     predio = buildings[0]
     chao = janela.height - 100
     mimi.y = chao
@@ -394,16 +430,25 @@ def jogo(janela):
 
     tempo_car = 0
     rand_car = uniform(2, 6)
+
+    tempo_bueiro = 0
+    tempo_geiser = 0
+    parar_bueiro = 0
+    rand_bueiro = uniform(3, 8)
+
     escondido = False
     gatescondido = False
     blink3 = blink4 = 0
     cont3 = cont4 = 0
     blink = blink2 = 0
     cont2 = cont = 0
+
     exclamacao = Sprite("images/exclamacao.png")
     exclamacao.x = janela.width - exclamacao.width - 20
     exclamacao.y = janela.height - exclamacao.height - 20
     exclamacao.hide()
+
+
     carros = []
 
     filhotes = [(Sprite("images/filhoteesq.png", 6)), (Sprite("images/filhote.png", 6)), -1, 1]
@@ -412,12 +457,14 @@ def jogo(janela):
         filhotes[i].y = mimi.y + 15
         filhotes[i].set_total_duration(1000)
 
-    bueiro.x = mimi.x + 150
-    bueiro.y = mimi.y - 120
-    bueiro.set_total_duration(500)
-
+    bueiro.x = mimi.x
+    bueiro.y = mimi.y + 35
+    bueiro.set_total_duration(250)
+    esgoto = 0
+    colidirbueiro = False
     while True:
 
+        ### piscar exclamação
         if escondido or blink2 > 0.2:
             exclamacao.unhide()
             blink += janela.delta_time()
@@ -440,6 +487,7 @@ def jogo(janela):
         if cont == 1:
             blink2 += janela.delta_time()
 
+        ### piscar mimi
         if gatescondido or blink3 > 0.2:
             mimi.hide()
             blink4 += janela.delta_time()
@@ -461,6 +509,7 @@ def jogo(janela):
 
         if cont3 == 1:
             blink3 += janela.delta_time()
+        ###
 
         scrolling(fundo, fundofrente, fundo2, fundo2frente)
         fundo.draw()
@@ -491,6 +540,9 @@ def jogo(janela):
             filhotes[i].update()
         exclamacao.draw()
 
+        bueiro.draw()
+        bueiro.update()
+
         for carro in carros:
             carro.draw()
             mov_carro(carro, speed)
@@ -503,14 +555,44 @@ def jogo(janela):
         topodopredio(mimi, janela)
         predioatual(mimi, buildings)
 
+        tempo_bueiro += janela.delta_time()
         tempo_car += janela.delta_time()
+
+        if tempo_bueiro >= rand_bueiro and esgoto == 0:
+            bueiro = tremebueiro(bueiro)
+            esgoto = 1
+
+        if esgoto == 1:
+            tempo_geiser += janela.delta_time()
+
+        if tempo_geiser >= 1.5 and esgoto == 1:
+            esgoto = 0
+            rand_bueiro = 10000000
+            bueiro = explodebueiro(bueiro)
+            colidirbueiro = True
+            tempo_geiser = 0
+
+        if colidirbueiro is True:
+            parar_bueiro += janela.delta_time()
+            if imune is False:
+                gatescondido = colisao_bueiro(bueiro, mimi)
+
+        if parar_bueiro >= 2 and colidirbueiro is True:
+            parar_bueiro = 0
+            aux = bueiro.x
+            auy = bueiro.y
+            bueiro = Sprite("images/bueiroparado.png", 1)
+            bueiro.x = aux
+            bueiro.y = auy + 130
+            bueiro.set_total_duration(1000)
+            tempo_bueiro = 0
+            rand_bueiro = uniform(3, 8)
+            colidirbueiro = False
+
         if tempo_car >= rand_car:
             tempo_car = 0
             rand_car = uniform(2, 6)
             escondido = True
-
-        bueiro.draw()
-        bueiro.update()
 
     #    mov_cenario(mimi, teclado, static, animated, buildings, carnes, speed, janela)
 
