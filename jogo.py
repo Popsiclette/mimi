@@ -111,14 +111,14 @@ def mov_mimi(mimi, teclado, speed, janela):
 def predioatual(mimi, buildings):
     global predio
     for i in range(len(buildings)):
-        if buildings[i].x - 10 <= mimi.x + mimi.width <= buildings[i].x + buildings[i].width + 100:
+        if buildings[i].x <= mimi.x + mimi.width <= buildings[i].x + buildings[i].width + 30:
             predio = buildings[i]
 
 
 def escalar(mimi, teclado):
     global escalada, predio, olhar, andar, andaresq
 
-    if teclado.key_pressed("UP") and predio.x < mimi.x + mimi.width < predio.x + 30 and olhar == 0:
+    if teclado.key_pressed("UP") and predio.x < mimi.x + mimi.width < predio.x + 30 and olhar == 0 and mimi.y > predio.y:
         if escalada == 0:
             andar = 0
             andaresq = 0
