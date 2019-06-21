@@ -111,7 +111,7 @@ def mov_mimi(mimi, teclado, speed, janela):
 def predioatual(mimi, buildings):
     global predio
     for i in range(len(buildings)):
-        if buildings[i].x < mimi.x + mimi.width < buildings[i].x + buildings[i].width:
+        if buildings[i].x - 10 <= mimi.x + mimi.width <= buildings[i].x + buildings[i].width + 100:
             predio = buildings[i]
 
 
