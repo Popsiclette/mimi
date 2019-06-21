@@ -324,7 +324,7 @@ def jogo(janela):
     cao = Sprite("images/dogesq.png", 8)
     carne = Sprite("images/chicken.png")
     lua = Sprite("images/lua.png")
-    bueiro = Sprite("images/bueiroegeiser.png", 11)
+    bueiro = Sprite("images/bueirotreme.png", 8)
     cao.set_total_duration(1000)
     mimi.set_total_duration(1000)
     animated = [cao, bombardeiro]
@@ -414,7 +414,7 @@ def jogo(janela):
 
     bueiro.x = mimi.x + 150
     bueiro.y = mimi.y - 120
-    bueiro.set_total_duration(1000)
+    bueiro.set_total_duration(500)
 
     while True:
 
