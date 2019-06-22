@@ -705,8 +705,7 @@ def jogo(janela):
                 tempo_dir.hide()
                 crono_1 = False
             else:
-                temp_repete.pop(len(temp_repete)-1)
-
+                temp_repete.pop(-1)
 
     #    mov_cenario(mimi, teclado, static, animated, buildings, carnes, speed, janela)
 
