@@ -462,6 +462,96 @@ def jogo(janela):
     bueiro.set_total_duration(250)
     esgoto = 0
     colidirbueiro = False
+
+    tempo = [(Sprite("images/yellow/meter_icon_holder_yellow.png")), (Sprite("images/yellow/timer.png"))]
+    temp_bar_repete = [(Sprite("images/yellow/meter_bar_holder_center-repeating_yellow.png")),
+                       (Sprite("images/yellow/meter_bar_holder_center-repeating_yellow.png")),
+                       (Sprite("images/yellow/meter_bar_holder_center-repeating_yellow.png")),
+                       (Sprite("images/yellow/meter_bar_holder_center-repeating_yellow.png")),
+                       (Sprite("images/yellow/meter_bar_holder_center-repeating_yellow.png")),
+                       (Sprite("images/yellow/meter_bar_holder_center-repeating_yellow.png"))]
+    temp_repete = [(Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png")),
+                   (Sprite("images/yellow/meter_bar_center-repeating_yellow.png"))]
+    tempo_bar_dir = (Sprite("images/yellow/meter_bar_holder_right_edge_yellow.png"))
+    tempo_dir = (Sprite("images/yellow/meter_bar_right_edge_yellow.png"))
+
+    tempo[1].x = tempo[0].width/2 - tempo[1].width/2
+    tempo[1].y = tempo[0].height/2 - tempo[1].height/2
+    aux = 0
+    aux += tempo[0].width - 10
+    for barra in temp_repete:
+        aux += barra.width
+        barra.x = aux
+    tempo_dir.x = aux + temp_repete[0].width
+    aux = 0
+    for barra in temp_bar_repete:
+        aux += barra.width
+        barra.x = aux
+    tempo_bar_dir.x = aux + temp_bar_repete[0].width
+
+    cronometro = 0
+    crono_1 = True
+    segs = 5
     while True:
 
         ### piscar exclamação
@@ -593,6 +683,28 @@ def jogo(janela):
             tempo_car = 0
             rand_car = uniform(2, 6)
             escondido = True
+
+        for barra in temp_bar_repete:
+            barra.draw()
+        tempo_bar_dir.draw()
+        for barra in temp_repete:
+            barra.draw()
+        tempo_dir.draw()
+
+        for temp in tempo:
+            temp.draw()
+
+        cronometro += janela.delta_time()
+
+        if cronometro >= segs:
+            cronometro = 0
+            segs = 2
+            if crono_1 is True:
+                tempo_dir.hide()
+                crono_1 = False
+            else:
+                temp_repete.pop(len(temp_repete)-1)
+
 
     #    mov_cenario(mimi, teclado, static, animated, buildings, carnes, speed, janela)
 
