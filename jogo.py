@@ -115,38 +115,43 @@ def predioatual(mimi, buildings):
             predio = buildings[i]
 
 
-def escalar(mimi, teclado):
-    global escalada, predio, olhar, andar, andaresq
+def escalar(mimi, teclado, buildings, janela):
+    global escalada, olhar, andar, andaresq, predio
 
-    if teclado.key_pressed("UP") and predio.x < mimi.x + mimi.width < predio.x + 30 and olhar == 0 and mimi.y > predio.y:
-        if escalada == 0:
-            andar = 0
-            andaresq = 0
-            aux = mimi.x + mimi.width
-            auy = mimi.y
-            mimi = Sprite("images/mimiescalada.png", 10)
-            mimi.set_total_duration(1000)
-            mimi.x = aux
-            mimi.y = auy
-        escalada = 1
+    for predios in buildings:
+        if 0 <= predios.x + predios.width <= janela.width:
+            if teclado.key_pressed("UP") and predios.x < mimi.x + mimi.width < predios.x + 30 and olhar == 0 and mimi.y > predios.y:
+                if escalada == 0:
+                    andar = 0
+                    andaresq = 0
+                    aux = mimi.x + mimi.width
+                    auy = mimi.y
+                    mimi = Sprite("images/mimiescalada.png", 10)
+                    mimi.set_total_duration(1000)
+                    mimi.x = aux
+                    mimi.y = auy
+                escalada = 1
+                predio = predios
 
-    if teclado.key_pressed("UP") and predio.x + predio.width - 50 < mimi.x < predio.x + predio.width and olhar == 1:
-        if escalada == 0:
-            andar = 0
-            andaresq = 0
-            aux = mimi.x
-            auy = mimi.y
-            mimi = Sprite("images/mimiescalaresq.png", 10)
-            mimi.set_total_duration(1000)
-            mimi.x = aux
-            mimi.y = auy
-        escalada = 1
+            if teclado.key_pressed("UP") and predios.x + predios.width - 50 < mimi.x < predios.x + predios.width and olhar == 1:
+                if escalada == 0:
+                    andar = 0
+                    andaresq = 0
+                    aux = mimi.x
+                    auy = mimi.y
+                    mimi = Sprite("images/mimiescalaresq.png", 10)
+                    mimi.set_total_duration(1000)
+                    mimi.x = aux
+                    mimi.y = auy
+                escalada = 1
+                predio = predios
 
     if escalada == 1 and teclado.key_pressed("UP") is False:
         aux = mimi.x
         auy = mimi.y
         if olhar == 1:
             mimi = Sprite("images/mimiparadaesq.png")
+            aux -= 10
         else:
             mimi = Sprite("images/mimiparada.png", 1)
         mimi.x = aux
@@ -161,21 +166,22 @@ def escalar(mimi, teclado):
             auy = predio.y
             if olhar == 1:
                 mimi = Sprite("images/mimiparadaesq.png")
+                aux -= 10
             else:
                 mimi = Sprite("images/mimiparada.png", 1)
             mimi.x = aux
             mimi.y = auy
             mimi.set_total_duration(1000)
-        if teclado.key_pressed("UP") is False:
             escalada = 0
-
-
+    if teclado.key_pressed("UP") is False:
+        escalada = 0
+        
     return mimi
 
 
 def topodopredio(mimi, janela):
     global chao, predio
-    if mimi.y <= predio.y and predio.x < mimi.x < predio.x + predio.width:
+    if mimi.y <= predio.y and predio.x - 10 < mimi.x < predio.x + predio.width:
         chao = predio.y
     else:
         chao = janela.height - 100
@@ -326,7 +332,7 @@ def explodebueiro(bueiro):
     auy = bueiro.y
     bueiro = Sprite("images/bueiroegeiser.png", 11)
     bueiro.x = aux
-    bueiro.y = auy - 130
+    bueiro.y = auy - 135
     bueiro.set_total_duration(1000)
 
     return bueiro
@@ -623,7 +629,7 @@ def jogo(janela):
         mimi.draw()
         mimi.update()
         mimi = mov_mimi(mimi, teclado, speed, janela)
-        mimi = escalar(mimi, teclado)
+        mimi = escalar(mimi, teclado, buildings, janela)
         mimi = mov_cenario(mimi, teclado, static, animated, buildings, speed, janela, cao, carros, filhotes)
 
         filhotes = mov_filhotes(filhotes)
@@ -675,7 +681,7 @@ def jogo(janela):
             auy = bueiro.y
             bueiro = Sprite("images/bueiroparado.png", 1)
             bueiro.x = aux
-            bueiro.y = auy + 130
+            bueiro.y = auy + 135
             bueiro.set_total_duration(1000)
             tempo_bueiro = 0
             rand_bueiro = uniform(3, 8)
