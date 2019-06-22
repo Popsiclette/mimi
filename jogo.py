@@ -349,7 +349,8 @@ def jogo(janela):
 
     teclado = Window.get_keyboard()
 
-    bombardeiro = Sprite("images/parado.png")
+    bombardeiro = Sprite("images/parado.png", 6)
+    bombardeiro.set_total_duration(500)
     casa = Sprite("images/casa2.png")
     fundo = GameImage("images/fundoatras.png")
     fundofrente = GameImage("images/fundofrente.png")
@@ -617,6 +618,7 @@ def jogo(janela):
         cao = mov_cao(cao, janela, speed, mimi)
 
         bombardeiro.draw()
+        bombardeiro.update()
 
         mimi.draw()
         mimi.update()
