@@ -291,7 +291,7 @@ def mov_filhotes(filhotes):
     global ini
     for i in range(2):
         filhotes[i].x += filhotes[i+2]
-        if filhotes[i].x > 100:
+        if filhotes[i].x > ini + 100:
             aux = filhotes[i].x
             auy = filhotes[i].y
             filhotes[i] = Sprite("images/filhoteesq.png", 6)
