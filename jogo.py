@@ -757,6 +757,8 @@ def jogo(janela):
 
     altura_rua = janela.height - 340
     buildings = []
+    tops = 0
+    upper = [932, 2764, 4542, 6688]
 
     garrafas = []
 
@@ -764,6 +766,12 @@ def jogo(janela):
         buildings.append(Sprite(level[i][0]))
         buildings[i].x = level[i][1]
         buildings[i].y = janela.height - 61 - buildings[i].height
+
+    for i in range(20, 24):
+        buildings.append(Sprite("images/cimaloja.png"))
+        buildings[i].x = upper[tops]
+        buildings[i].y = janela.height - 220 - buildings[i].height
+        tops += 1
 
     predio = buildings[0]
     chao = janela.height - 100
