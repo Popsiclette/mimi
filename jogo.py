@@ -291,7 +291,6 @@ def mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, ca
 
     if pegar == 1 and direcao == 0:
         direcao = -1
-
     return mimi
 
 
@@ -301,12 +300,6 @@ def scrolling(fundo, fundofrente, fundo2, fundo2frente, janela):
         fundo.x = fundo2.x + fundo2.width
         fundofrente.x = fundo.x
     if fundo.x <= 0 and pegar == 0:
-        fundo2.x = fundo.x + fundo.width
-        fundo2frente.x = fundo2.x
-    if fundo2.width + fundo2.x >= janela.width and pegar == 1:
-        fundo.x = fundo2.x + fundo2.width
-        fundofrente.x = fundo.x
-    if fundo.width + fundo.x >= janela.width and pegar == 1:
         fundo2.x = fundo.x + fundo.width
         fundo2frente.x = fundo2.x
 
@@ -473,15 +466,14 @@ def explodebueiro(bueiro):
     return bueiro
 
 
-def colisao_bueiro(bueiro, mimi):
+def colisao_bueiro(bueiros, mimi):
     global vidas, imune
-    if mimi.collided(bueiro):
-            vidas -= 1
-            if vidas >= 0:
-                imune = True
-                return True
-            else:
-                derrota()
+    for bueiro in bueiros:
+        if mimi.collided(bueiro):
+                vidas -= 1
+                if vidas >= 0:
+                    imune = True
+                    return True
     return False
 
 
@@ -512,7 +504,7 @@ def jogo(janela):
     cao = Sprite("images/dogesq.png", 8)
     carne = Sprite("images/chicken.png")
     lua = Sprite("images/lua.png")
-    bueiro = Sprite("images/bueiroparado.png", 1)
+    bueiros = [Sprite("images/bueiroparado.png", 1)]
     cao.set_total_duration(1000)
     mimi.set_total_duration(1000)
     static = [fundo, fundofrente, fundo2, fundo2frente]
@@ -600,9 +592,9 @@ def jogo(janela):
         filhotes[i].y = mimi.y + 15
         filhotes[i].set_total_duration(1000)
 
-    bueiro.x = mimi.x
-    bueiro.y = mimi.y + 35
-    bueiro.set_total_duration(250)
+    bueiros[0].x = mimi.x
+    bueiros[0].y = mimi.y + 35
+    bueiros[0].set_total_duration(250)
     esgoto = 0
     colidirbueiro = False
 
@@ -840,8 +832,9 @@ def jogo(janela):
             filhotes[i].update()
         exclamacao.draw()
 
-        bueiro.draw()
-        bueiro.update()
+        for bueiro in bueiros:
+            bueiro.draw()
+            bueiro.update()
 
         for carro in carros:
             carro.draw()
@@ -859,7 +852,8 @@ def jogo(janela):
         tempo_car += janela.delta_time()
 
         if tempo_bueiro >= rand_bueiro and esgoto == 0:
-            bueiro = tremebueiro(bueiro)
+            for i in range(len(bueiros)):
+                bueiros[i] = tremebueiro(bueiros[i])
             esgoto = 1
 
         if esgoto == 1:
@@ -868,23 +862,25 @@ def jogo(janela):
         if tempo_geiser >= 1.5 and esgoto == 1:
             esgoto = 0
             rand_bueiro = 10000000
-            bueiro = explodebueiro(bueiro)
+            for i in range(len(bueiros)):
+                bueiros[i] = explodebueiro(bueiros[i])
             colidirbueiro = True
             tempo_geiser = 0
 
         if colidirbueiro is True:
             parar_bueiro += janela.delta_time()
             if imune is False:
-                gatescondido = colisao_bueiro(bueiro, mimi)
+                gatescondido = colisao_bueiro(bueiros, mimi)
 
         if parar_bueiro >= 1 and colidirbueiro is True:
             parar_bueiro = 0
-            aux = bueiro.x
-            auy = bueiro.y
-            bueiro = Sprite("images/bueiroparado.png", 1)
-            bueiro.x = aux
-            bueiro.y = auy + 135
-            bueiro.set_total_duration(1000)
+            for i in range(len(bueiros)):
+                aux = bueiros[i].x
+                auy = bueiros[i].y
+                bueiros[i] = Sprite("images/bueiroparado.png", 1)
+                bueiros[i].x = aux
+                bueiros[i].y = auy + 135
+                bueiros[i].set_total_duration(1000)
             tempo_bueiro = 0
             rand_bueiro = uniform(3, 8)
             colidirbueiro = False
