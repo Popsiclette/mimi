@@ -285,7 +285,7 @@ def mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, ca
             cao[i].x -= speed
         if pegar == 0:
             carne.x -= speed
-        if buildings[16].x + buildings[16].width + 400 <= janela.width and pegar == 0:
+        if ini == 0 and pegar == 1:
             direcao = 0
 
         if pegar == 1:
@@ -312,7 +312,6 @@ def scrolling(fundo, fundofrente, fundo2, fundo2frente):
         if fundo2.x >= 0 and fundo.x > fundo2.x:
             fundo.x = fundo2.x - fundo.width
             fundofrente.x = fundo.x
-
 
 
 def mov_cao(cao, janela, speed):
