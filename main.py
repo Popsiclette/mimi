@@ -15,5 +15,7 @@ while True:
         pass
     if game_state == 1:
         game_state = jogo.jogo(janela)
+    if game_state == 2:
+        game_state = jogo.jogo(janela)
 
     janela.update()
