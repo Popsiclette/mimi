@@ -127,6 +127,7 @@ def mov_mimi(mimi, teclado, speed, janela):
 
     return mimi
 
+
 def pegarcarne(carne, mimi, janela):
     global pegar
     if mimi.collided(carne):
@@ -135,11 +136,13 @@ def pegarcarne(carne, mimi, janela):
         carne.x = janela.width - carne.height
     return carne
 
+
 def predioatual(mimi, buildings):
     global predio
     for i in range(len(buildings)):
         if buildings[i].x - 30 <= mimi.x + mimi.width <= buildings[i].x + buildings[i].width + 30:
             predio = buildings[i]
+
 
 def escalar(mimi, teclado, buildings, janela):
     global escalada, olhar, andar, andaresq, predio
@@ -204,12 +207,14 @@ def escalar(mimi, teclado, buildings, janela):
 
     return mimi
 
+
 def topodopredio(mimi, janela):
     global chao, predio
     if mimi.y <= predio.y and predio.x - 30 < mimi.x < predio.x + predio.width:
         chao = predio.y
     else:
         chao = janela.height - 100
+
 
 def mov_cenario(mimi, teclado, static, animated, buildings, speed, janela, cao, carros, filhotes, carne):
     global andar, pulo, escalada, ini, pegar, direcao, olhar, andaresq
@@ -284,6 +289,7 @@ def mov_cenario(mimi, teclado, static, animated, buildings, speed, janela, cao, 
 
     return mimi
 
+
 def scrolling(fundo, fundofrente, fundo2, fundo2frente):
     if fundo2.x <= 0:
         fundo.x = fundo2.x + fundo2.width
@@ -291,6 +297,7 @@ def scrolling(fundo, fundofrente, fundo2, fundo2frente):
     if fundo.x <= 0:
         fundo2.x  = fundo.x + fundo.width
         fundo2frente.x = fundo2.x
+
 
 def mov_cao(cao, janela, speed):
     global olharcao, invertecao
@@ -318,8 +325,10 @@ def mov_cao(cao, janela, speed):
 
     return cao
 
+
 def mov_carro(carro, speed):
     carro.x -= 2*speed
+
 
 def cria_carro(janela, altura_rua):
     carros = ["images/carro.png", "images/carro2.png", "images/carro3.png", "images/carro4.png", "images/carro5.png"]
@@ -327,6 +336,7 @@ def cria_carro(janela, altura_rua):
     carro.x = janela.width
     carro.y = altura_rua + 222
     return carro
+
 
 def colisao(carros, cao, mimi):
     global vidas, imune
@@ -347,8 +357,10 @@ def colisao(carros, cao, mimi):
                 derrota()
     return False
 
+
 def derrota():
     quit()
+
 
 def mov_filhotes(filhotes):
     global ini
@@ -372,6 +384,7 @@ def mov_filhotes(filhotes):
             filhotes[i+2] *= -1
     return filhotes
 
+
 def tremebueiro(bueiro):
     aux = bueiro.x
     auy = bueiro.y
@@ -381,6 +394,7 @@ def tremebueiro(bueiro):
     bueiro.set_total_duration(250)
 
     return bueiro
+
 
 def explodebueiro(bueiro):
     aux = bueiro.x
@@ -392,6 +406,7 @@ def explodebueiro(bueiro):
 
     return bueiro
 
+
 def colisao_bueiro(bueiro, mimi):
     global vidas, imune
     if mimi.collided(bueiro):
@@ -402,6 +417,7 @@ def colisao_bueiro(bueiro, mimi):
             else:
                 derrota()
     return False
+
 
 '''
  ######      ###    ##     ## ######## 
@@ -484,7 +500,8 @@ def jogo(janela):
     bombardeiro.y = cao.y - 39
 
     speed = 5
-    lua.x += 15
+    lua.x = 30
+    lua.y = 20
 
     tempo_car = 0
     rand_car = uniform(2, 6)
@@ -602,19 +619,26 @@ def jogo(janela):
     tempo_bar_dir = (Sprite("images/yellow/meter_bar_holder_right_edge_yellow.png"))
     tempo_dir = (Sprite("images/yellow/meter_bar_right_edge_yellow.png"))
 
-    tempo[1].x = tempo[0].width/2 - tempo[1].width/2
-    tempo[1].y = tempo[0].height/2 - tempo[1].height/2
+    tempo[0].x = 5
+    tempo[0].y = 5
+    tempo[1].x = tempo[0].width/2 - tempo[1].width/2 + 5
+    tempo[1].y = tempo[0].height/2 - tempo[1].height/2 + 5
+
     aux = 0
     aux += tempo[0].width - 10
     for barra in temp_repete:
         aux += barra.width
         barra.x = aux
+        barra.y = 10
     tempo_dir.x = aux + temp_repete[0].width
+    tempo_dir.y = 10
     aux = 0
     for barra in temp_bar_repete:
         aux += barra.width
         barra.x = aux
+        barra.y = 10
     tempo_bar_dir.x = aux + temp_bar_repete[0].width
+    tempo_bar_dir.y = 10
 
     cronometro = 0
     crono_1 = True
@@ -838,3 +862,4 @@ def jogo(janela):
             sevenhearts.draw()
 
         janela.update()
+
