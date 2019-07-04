@@ -248,7 +248,7 @@ def mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, ca
             buildings[i].x -= speed
         cao.x -= speed
         for i in range(len(bombardeiro)):
-            bombardeiro[i].x -= speed
+            bombardeiro[i][0].x -= speed
         for i in range(len(carros)):
             carros[i].x -= speed
 
@@ -275,7 +275,7 @@ def mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, ca
         for i in range(2):
             filhotes[i].x -= speed
         for i in range(len(bombardeiro)):
-            bombardeiro[i].x -= speed
+            bombardeiro[i][0].x -= speed
         for i in range(len(static)):
             static[i].x -= speed
         for i in range(len(buildings)):
@@ -294,7 +294,7 @@ def mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, ca
     return mimi
 
 
-def scrolling(fundo, fundofrente, fundo2, fundo2frente, janela):
+def scrolling(fundo, fundofrente, fundo2, fundo2frente):
     global pegar
     if fundo2.x <= 0 and pegar == 0:
         fundo.x = fundo2.x + fundo2.width
@@ -358,6 +358,7 @@ def colisao(carros, cao, mimi, garrafas):
                 return True
     for garrafa in garrafas:
         if mimi.collided(garrafa[0]):
+            garrafas.remove(garrafa)
             vidas -= 1
             if vidas > 0:
                 imune = True
@@ -367,11 +368,11 @@ def colisao(carros, cao, mimi, garrafas):
 
 def criagarrafa(bombardeiro, mimi):
     direcao = -1
-    if bombardeiro.x < mimi.x:
+    if bombardeiro[0].x < mimi.x:
         direcao = 1
     garrafa = Sprite("images/garrafa.png", 8)
-    garrafa.x = bombardeiro.x
-    garrafa.y = bombardeiro.y
+    garrafa.x = bombardeiro[0].x
+    garrafa.y = bombardeiro[0].y
     garrafa.set_total_duration(700)
     return [garrafa, direcao, 2]
 
@@ -477,6 +478,26 @@ def colisao_bueiro(bueiros, mimi):
     return False
 
 
+def mov_bombardeiro(bombardeiros, mimi):
+    for i in range(len(bombardeiros)):
+        if bombardeiros[i][0].x < mimi.x and bombardeiros[i][1] == 0:
+            aux = bombardeiros[i][0].x
+            auy = bombardeiros[i][0].y
+            bombardeiros[i][0] = Sprite("images/parado.png", 6)
+            bombardeiros[i][0].set_total_duration(800)
+            bombardeiros[i][0].x = aux
+            bombardeiros[i][0].y = auy
+            bombardeiros[i][1] = 1
+        elif bombardeiros[i][0].x > mimi.x and bombardeiros[i][1] == 1:
+            aux = bombardeiros[i][0].x
+            auy = bombardeiros[i][0].y
+            bombardeiros[i][0] = Sprite("images/bombard_esq.png", 6)
+            bombardeiros[i][0].set_total_duration(800)
+            bombardeiros[i][0].x = aux
+            bombardeiros[i][0].y = auy
+            bombardeiros[i][1] = 0
+
+
 '''
  ######      ###    ##     ## ######## 
 ##    ##    ## ##   ###   ### ##       
@@ -493,8 +514,8 @@ def jogo(janela):
 
     teclado = Window.get_keyboard()
 
-    bombardeiro = [Sprite("images/parado.png", 6)]
-    bombardeiro[0].set_total_duration(800)
+    bombardeiro = [[Sprite("images/bombard_esq.png", 6), 0]]
+    bombardeiro[0][0].set_total_duration(800)
     casa = Sprite("images/casa2.png")
     fundo = GameImage("images/fundoatras.png")
     fundofrente = GameImage("images/fundofrente.png")
@@ -556,8 +577,8 @@ def jogo(janela):
     cao.y = janela.height - 108
     cao.x += casa.width
     casa.y = altura_rua + 1
-    bombardeiro[0].x = janela.width
-    bombardeiro[0].y = 100
+    bombardeiro[0][0].x = janela.width
+    bombardeiro[0][0].y = 100
     tempogarrafa = 0
 
     speed = 5
@@ -800,7 +821,7 @@ def jogo(janela):
 
         ####################################
 
-        scrolling(fundo, fundofrente, fundo2, fundo2frente, janela)
+        scrolling(fundo, fundofrente, fundo2, fundo2frente)
         fundo.draw()
         fundo2.draw()
         lua.draw()
@@ -817,8 +838,8 @@ def jogo(janela):
         cao.update()
         cao = mov_cao(cao, janela, speed)
 
-        bombardeiro[0].draw()
-        bombardeiro[0].update()
+        bombardeiro[0][0].draw()
+        bombardeiro[0][0].update()
 
         mimi.draw()
         mimi.update()
@@ -941,7 +962,12 @@ def jogo(janela):
             tempogarrafa = 0
             for pessoa in bombardeiro:
                 garrafas.append(criagarrafa(pessoa, mimi))
+
         garrafas = mov_garrafa(garrafas, janela)
+
         tempogarrafa += janela.delta_time()
+
+        mov_bombardeiro(bombardeiro, mimi)
+
         janela.update()
 
