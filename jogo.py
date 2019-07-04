@@ -270,7 +270,8 @@ def topodopredio(mimi, janela):
   #####   ####  ###### #    # ###### #    #   #       ####   ####  #    #  ####  ###### ###### 
 '''
 
-def mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, cao, carros, filhotes, carne, garrafas):
+
+def mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, cao, carros, filhotes, carne, garrafas, bueiros):
     global andar, pulo, escalada, ini, pegar, direcao, olhar, andaresq
 
     speed *= direcao
@@ -305,6 +306,8 @@ def mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, ca
             bombardeiro[i][0].x -= speed
         for i in range(len(carros)):
             carros[i].x -= speed
+        for i in range(len(bueiros)):
+            bueiros[i].x -= speed
 
         if pegar == 0:
             carne.x -= speed
@@ -336,6 +339,8 @@ def mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, ca
             buildings[i].x -= speed
         for i in range(len(cao)):
             cao[i].x -= speed
+        for i in range(len(bueiros)):
+            bueiros[i].x -= speed
         if pegar == 0:
             carne.x -= speed
         if ini == 0 and pegar == 1:
@@ -356,6 +361,8 @@ def mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, ca
  #     # #    # #    # #   #  #    # #   #  #    # #    # #   ## #    #    #    # #    # #   #  #    # #      #      
  ######  #    #  ####  #    #  ####  #    #  ####   ####  #    # #####      ####   ####  #    #  ####  ###### ###### 
 '''
+
+
 def scrolling(fundo, fundofrente, fundo2, fundo2frente):
     global pegar
     if not pegar:
@@ -383,6 +390,7 @@ def scrolling(fundo, fundofrente, fundo2, fundo2frente):
  #     # #    # #    #    #    # #    #  #  #  #      #    # #      #   ##   #   
  ######   ####   ####     #    #  ####    ##   ###### #    # ###### #    #   #   
 '''
+
 
 def mov_cao(cao, janela, speed):
     global olharcao, invertecao
@@ -421,6 +429,7 @@ def mov_cao(cao, janela, speed):
   #####  #    # #    #    #    #  ####    ##   ###### #    # ###### #    #   #   
 '''
 
+
 def mov_carro(carro, speed):
     carro.x -= 2*speed
 
@@ -435,6 +444,8 @@ def mov_carro(carro, speed):
  #     # #    # #   #     #    # #   #  #      #    #   #   # #    # #   ## 
   #####  #    # #    #     ####  #    # ###### #    #   #   #  ####  #    # 
 '''
+
+
 
 def cria_carro(janela, altura_rua):
     carros = ["images/carro.png", "images/carro2.png", "images/carro3.png", "images/carro4.png", "images/carro5.png"]
@@ -453,6 +464,8 @@ def cria_carro(janela, altura_rua):
  #       #   ## #      #    #   #      #    # #    # #      #      # #    # # #    # #   ## 
  ####### #    # ###### #    #   #       ####   ####  ###### ###### #  ####  #  ####  #    # 
  '''
+
+
 def colisao(carros, caos, mimi, garrafas):
     global vidas, imune
     for carro in carros:
@@ -486,15 +499,18 @@ def colisao(carros, caos, mimi, garrafas):
  #     # #    #   #     #   #      #         #    # #   #  #      #    #   #   # #    # #   ## 
  ######   ####    #     #   ###### ######     ####  #    # ###### #    #   #   #  ####  #    #                                                                                             
 '''
+
+
 def criagarrafa(bombardeiro, mimi):
-    direcao = -1
+    direc = -1
     if bombardeiro[0].x < mimi.x:
-        direcao = 1
+        direc = 1
     garrafa = Sprite("images/garrafa.png", 8)
     garrafa.x = bombardeiro[0].x
     garrafa.y = bombardeiro[0].y
     garrafa.set_total_duration(700)
-    return [garrafa, direcao, 2]
+    return [garrafa, direc, 2]
+
 
 '''
  ######                                                                                             
@@ -505,6 +521,7 @@ def criagarrafa(bombardeiro, mimi):
  #     # #    #   #     #   #      #         #    # #    #  #  #  #      #    # #      #   ##   #   
  ######   ####    #     #   ###### ######    #    #  ####    ##   ###### #    # ###### #    #   #   
 '''
+
 
 def mov_garrafa(garrafas, janela):
     global gravidade
@@ -528,6 +545,8 @@ def mov_garrafa(garrafas, janela):
  #     # #      #    # #    # #    # #         #   #  #      #    # #        #   
   #####  ######  ####  #####  #    # ######    #    # ######  ####  ######   #   
 '''
+
+
 def resetaglobais():
     global pulo, escalada, predio, andar, andaresq, pulei, olhar, chao, olharcao, invertecao, vidas, imune, invertefilhote, inverteu, ini, pegar, direcao
 
@@ -559,6 +578,8 @@ def resetaglobais():
  #       #   ## #    #    #    # #    # #    # #      
  ####### #    # #####      ####  #    # #    # ######                                                    
 '''
+
+
 def derrota():
     resetaglobais()
     return 0
@@ -578,6 +599,8 @@ def vitoria():
  #   #  #   #     #   #      #   ## #    # 
  #    # #   #     #   ###### #    #  ####                                          
 '''
+
+
 def mov_filhotes(filhotes):
     global ini
     for i in range(2):
@@ -610,6 +633,8 @@ def mov_filhotes(filhotes):
  #     # #    # #   ## #    # #    # #      #         #    # #    # #    # #   #  #      
  #     # #    # #    # #    #  ####  ###### ######     ####  #    # #    # #    # ###### 
 '''
+
+
 def tremebueiro(bueiro):
     aux = bueiro.x
     auy = bueiro.y
@@ -630,6 +655,8 @@ def tremebueiro(bueiro):
  #     # #    # #   ## #    # #    # #      #         #       #  #  #      #      #    # #    # #      
  #     # #    # #    # #    #  ####  ###### ######    ###### #    # #      ######  ####  #####  ######                                                                                                     
 '''
+
+
 def explodebueiro(bueiro):
     aux = bueiro.x
     auy = bueiro.y
@@ -650,6 +677,8 @@ def explodebueiro(bueiro):
  #     # #    # #   ## #    # #    # #      #         #    # #    # #      #      # #    # # #    # #   ## 
  #     # #    # #    # #    #  ####  ###### ######     ####   ####  ###### ###### #  ####  #  ####  #    #                                                                                                         
 '''
+
+
 def colisao_bueiro(bueiros, mimi):
     global vidas, imune
     for bueiro in bueiros:
@@ -670,6 +699,7 @@ def colisao_bueiro(bueiros, mimi):
     #    #    # #   #  #    # ##  ## #      #   #     #    # #    #  #  #  #      #    # #      #   ##   #   
     #    #    # #    #  ####  #    # ###### #    #    #    #  ####    ##   ###### #    # ###### #    #   #                                                                                                             
 '''
+
 
 def mov_bombardeiro(bombardeiros, mimi):
     for i in range(len(bombardeiros)):
@@ -1043,7 +1073,7 @@ def jogo(janela):
         mimi.update()
         mimi = mov_mimi(mimi, teclado, speed, janela)
         mimi = escalar(mimi, teclado, buildings, janela)
-        mimi = mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, cao, carros, filhotes, carne, garrafas)
+        mimi = mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, cao, carros, filhotes, carne, garrafas, bueiros)
 
         filhotes = mov_filhotes(filhotes)
 
