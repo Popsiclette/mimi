@@ -20,6 +20,9 @@ imune = False
 invertefilhote = 1
 inverteu = 0
 ini = 0
+pegar = 0
+direcao = 1
+
 
 def mov_mimi(mimi, teclado, speed, janela):
     global pulo, gravidade, andar, andaresq, pulei, olhar
@@ -108,6 +111,15 @@ def mov_mimi(mimi, teclado, speed, janela):
     return mimi
 
 
+def pegarcarne(carne, mimi, janela):
+    global pegar
+    if mimi.collided(carne):
+        pegar = 1
+        carne.y = 0
+        carne.x = janela.width - carne.height
+    return carne
+
+
 def predioatual(mimi, buildings):
     global predio
     for i in range(len(buildings)):
@@ -175,7 +187,7 @@ def escalar(mimi, teclado, buildings, janela):
             escalada = 0
     if teclado.key_pressed("UP") is False:
         escalada = 0
-        
+
     return mimi
 
 
@@ -188,8 +200,10 @@ def topodopredio(mimi, janela):
 
 
 # def mov_cenario(mimi, teclado, static, animated, buildings, carnes, speed, janela):
-def mov_cenario(mimi, teclado, static, animated, buildings, speed, janela, cao, carros, filhotes):
-    global andar, pulo, escalada, ini
+def mov_cenario(mimi, teclado, static, animated, buildings, speed, janela, cao, carros, filhotes, carne):
+    global andar, pulo, escalada, ini, pegar, direcao
+
+    speed *= direcao
 
     if teclado.key_pressed("RIGHT") and mimi.x >= janela.width/2 and escalada == 0:
         if andar == 0 and pulo == 0:
@@ -214,6 +228,9 @@ def mov_cenario(mimi, teclado, static, animated, buildings, speed, janela, cao, 
         for i in range(len(carros)):
             carros[i].x -= speed
             # carnes[i].x -= speed
+
+        if pegar == 0:
+            carne.x -= speed
 
     return mimi
 
@@ -405,6 +422,7 @@ def jogo(janela):
 
     altura_rua = janela.height - 340
     buildings = []
+
     # carnes = []
 
     #for i in range(15):
@@ -425,6 +443,8 @@ def jogo(janela):
 
     predio = buildings[0]
     chao = janela.height - 100
+    carne.y = chao
+    carne.x = 2000
     mimi.y = chao
     cao.y = janela.height - 108
     cao.x += casa.width
@@ -454,7 +474,6 @@ def jogo(janela):
     exclamacao.x = janela.width - exclamacao.width - 20
     exclamacao.y = janela.height - exclamacao.height - 20
     exclamacao.hide()
-
 
     carros = []
 
@@ -617,7 +636,9 @@ def jogo(janela):
 
         for i in range(len(buildings)):
             buildings[i].draw()
-        #    carnes[i].draw()
+
+        carne = pegarcarne(carne, mimi, janela)
+        carne.draw()
 
         cao.draw()
         cao.update()
@@ -630,7 +651,7 @@ def jogo(janela):
         mimi.update()
         mimi = mov_mimi(mimi, teclado, speed, janela)
         mimi = escalar(mimi, teclado, buildings, janela)
-        mimi = mov_cenario(mimi, teclado, static, animated, buildings, speed, janela, cao, carros, filhotes)
+        mimi = mov_cenario(mimi, teclado, static, animated, buildings, speed, janela, cao, carros, filhotes, carne)
 
         filhotes = mov_filhotes(filhotes)
         for i in range(2):
