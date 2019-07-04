@@ -311,7 +311,7 @@ def mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, ca
 
         if pegar == 0:
             carne.x -= speed
-        if buildings[16].x + buildings[16].width + 100 <= janela.width and pegar == 0:
+        if buildings[19].x + buildings[19].width + 100 <= janela.width and pegar == 0:
             direcao = 0
 
     elif teclado.key_pressed("LEFT") and mimi.x <= janela.width/2 + mimi.width and escalada == 0 and direcao == -1:
@@ -737,8 +737,10 @@ def jogo(janela):
 
     teclado = Window.get_keyboard()
 
-    bombardeiro = [[Sprite("images/bombard_esq.png", 6), 0]]
+    bombardeiro = [[Sprite("images/bombard_esq.png", 6), 0], [Sprite("images/bombard_esq.png", 6), 0], [Sprite("images/bombard_esq.png", 6), 0]]
     bombardeiro[0][0].set_total_duration(800)
+    bombardeiro[1][0].set_total_duration(800)
+    bombardeiro[2][0].set_total_duration(800)
     casa = Sprite("images/casa2.png")
     fundo = GameImage("images/fundoatras.png")
     fundofrente = GameImage("images/fundofrente.png")
@@ -748,7 +750,7 @@ def jogo(janela):
     cao = [Sprite("images/dogesq.png", 8)]
     carne = Sprite("images/chicken.png")
     lua = Sprite("images/lua.png")
-    bueiros = [Sprite("images/bueiroparado.png", 1)]
+    bueiros = [Sprite("images/bueiroparado.png", 1), Sprite("images/bueiroparado.png", 1), Sprite("images/bueiroparado.png", 1), Sprite("images/bueiroparado.png", 1), Sprite("images/bueiroparado.png", 1)]
     cao[0].set_total_duration(1000)
     mimi.set_total_duration(1000)
     static = [fundo, fundofrente, fundo2, fundo2frente]
@@ -798,13 +800,19 @@ def jogo(janela):
     predio = buildings[0]
     chao = janela.height - 100
     carne.y = chao
-    carne.x = 7100
+    carne.x = 7350
     mimi.y = chao
     cao[0].y = janela.height - 108
     cao[0].x += casa.width
     casa.y = altura_rua + 1
-    bombardeiro[0][0].x = janela.width
-    bombardeiro[0][0].y = 100
+
+    bombardeiro[0][0].x = 2043
+    bombardeiro[1][0].x = 3790
+    bombardeiro[2][0].x = 6211 + buildings[2].width/2
+    bombardeiro[0][0].y = buildings[2].y - bombardeiro[0][0].height
+    bombardeiro[1][0].y = buildings[2].y - bombardeiro[0][0].height
+    bombardeiro[2][0].y = buildings[2].y - bombardeiro[0][0].height
+
     tempogarrafa = 0
 
     speed = 5
@@ -839,9 +847,15 @@ def jogo(janela):
         filhotes[i].y = mimi.y + 15
         filhotes[i].set_total_duration(1000)
 
-    bueiros[0].x = mimi.x
-    bueiros[0].y = mimi.y + 35
-    bueiros[0].set_total_duration(250)
+    bueiros[0].x = 782
+    bueiros[1].x = 2620
+    bueiros[2].x = 3249
+    bueiros[3].x = 4398
+    bueiros[4].x = 7080
+    for i in range(len(bueiros)):
+        bueiros[i].y = mimi.y + 35
+        bueiros[i].set_total_duration(250)
+
     esgoto = 0
     colidirbueiro = False
 
@@ -1066,8 +1080,10 @@ def jogo(janela):
             cao[i].update()
             cao[i] = mov_cao(cao[i], janela, speed)
 
-        bombardeiro[0][0].draw()
-        bombardeiro[0][0].update()
+        for pessoa in bombardeiro:
+            if 0 < pessoa[0].x < janela.width:
+                pessoa[0].draw()
+                pessoa[0].update()
 
         mimi.draw()
         mimi.update()
@@ -1190,7 +1206,8 @@ def jogo(janela):
         if tempogarrafa >= 1:
             tempogarrafa = 0
             for pessoa in bombardeiro:
-                garrafas.append(criagarrafa(pessoa, mimi))
+                if 0 < pessoa[0].x < janela.width:
+                    garrafas.append(criagarrafa(pessoa, mimi))
 
         garrafas = mov_garrafa(garrafas, janela)
 
