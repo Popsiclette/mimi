@@ -144,12 +144,20 @@ def mov_mimi(mimi, teclado, speed, janela):
 
 
 def pegarcarne(carne, mimi, janela):
-    global pegar
-    if mimi.collided(carne):
+    global pegar, imune
+    if mimi.collided(carne) and imune is False:
         pegar = 1
         carne.y = 40
         carne.x = janela.width - carne.height
     return carne
+
+
+def droparcarne(carne, mimi, janela):
+    global pegar
+    if pegar == 1:
+        pegar = 0
+        carne.y = mimi.y
+        carne.x = mimi.x
 
 
 '''
@@ -1026,7 +1034,13 @@ def jogo(janela):
 
 
     fps = fps2 = segundo = decremento = 0
+
     while True:
+
+        if imune:
+            droparcarne(carne, mimi, janela)
+        if carne.y < janela.height - 100 and pegar == 0:
+            carne.y += 1
 
         '''
         #     #                                         ######                         
