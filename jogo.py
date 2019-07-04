@@ -3,6 +3,7 @@ from PPlay.gameimage import *
 from PPlay.sprite import *
 from random import uniform, choice
 
+'''
   #####                                     
  #     # #       ####  #####    ##   #      
  #       #      #    # #    #  #  #  #      
@@ -10,6 +11,7 @@ from random import uniform, choice
  #     # #      #    # #    # ###### #      
  #     # #      #    # #    # #    # #      
   #####  ######  ####  #####  #    # ###### 
+'''
 gravidade = 250
 pulo = 0
 escalada = 0
@@ -29,6 +31,7 @@ ini = 0
 pegar = 0
 direcao = 1
 
+'''
  #######                                                   
  #       #    # #    #  ####  ##### #  ####  #    #  ####  
  #       #    # ##   # #    #   #   # #    # ##   # #      
@@ -36,6 +39,7 @@ direcao = 1
  #       #    # #  # # #        #   # #    # #  # #      # 
  #       #    # #   ## #    #   #   # #    # #   ## #    # 
  #        ####  #    #  ####    #   #  ####  #    #  ####  
+'''
 
 def mov_mimi(mimi, teclado, speed, janela):
     global pulo, gravidade, andar, andaresq, pulei, olhar, direcao
@@ -399,7 +403,7 @@ def colisao_bueiro(bueiro, mimi):
                 derrota()
     return False
 
-#
+'''
  ######      ###    ##     ## ######## 
 ##    ##    ## ##   ###   ### ##       
 ##         ##   ##  #### #### ##       
@@ -407,6 +411,7 @@ def colisao_bueiro(bueiro, mimi):
 ##    ##  ######### ##     ## ##       
 ##    ##  ##     ## ##     ## ##       
  ######   ##     ## ##     ## ########
+'''
 
 def jogo(janela):
     global pulo, chao, predio, imune, vidas
@@ -515,6 +520,7 @@ def jogo(janela):
     esgoto = 0
     colidirbueiro = False
 
+    '''
      #####                                                        
     #     # #####  ####  #####  #    #   ##   #####  ####  #    # 
     #         #   #    # #    # #    #  #  #    #   #    # #    # 
@@ -522,6 +528,7 @@ def jogo(janela):
           #   #   #    # #####  # ## # ######   #   #      #    # 
     #     #   #   #    # #      ##  ## #    #   #   #    # #    # 
      #####    #    ####  #      #    # #    #   #    ####  #    #
+    '''
 
     tempo = [(Sprite("images/yellow/meter_icon_holder_yellow.png")), (Sprite("images/yellow/timer.png"))]
     temp_bar_repete = [(Sprite("images/yellow/meter_bar_holder_center-repeating_yellow.png")),
@@ -613,6 +620,7 @@ def jogo(janela):
     crono_1 = True
     segs = 5
 
+    '''
     #     #
     #     # ######   ##   #      ##### #    #
     #     # #       #  #  #        #   #    #
@@ -620,6 +628,7 @@ def jogo(janela):
     #     # #      ###### #        #   #    #
     #     # #      #    # #        #   #    #
     #     # ###### #    # ######   #   #    #
+    '''
 
     oneheart = GameImage("images/health/1heart.png")
     twohearts = GameImage("images/health/2hearts.png")
@@ -640,13 +649,15 @@ def jogo(janela):
 
     while True:
 
+        '''
         #     #                                         ######                         
         #  #  #   ##   #####  #    # # #    #  ####     #     # #      # #    # #    # 
         #  #  #  #  #  #    # ##   # # ##   # #    #    #     # #      # ##   # #   #  
         #  #  # #    # #    # # #  # # # #  # #         ######  #      # # #  # ####   
         #  #  # ###### #####  #  # # # #  # # #  ###    #     # #      # #  # # #  #   
         #  #  # #    # #   #  #   ## # #   ## #    #    #     # #      # #   ## #   #  
-        ## ##  #    # #    # #    # # #    #  ####     ######  ###### # #    # #    # 
+         ## ##  #    # #    # #    # # #    #  ####     ######  ###### # #    # #    # 
+        '''
         
         if escondido or blink2 > 0.2:
             exclamacao.unhide()
@@ -670,6 +681,7 @@ def jogo(janela):
         if cont == 1:
             blink2 += janela.delta_time()
 
+        '''
         #     #               ######                         
         ##   ## # #    # #    #     # #      # #    # #    # 
         # # # # # ##  ## #    #     # #      # ##   # #   #  
@@ -677,6 +689,7 @@ def jogo(janela):
         #     # # #    # #    #     # #      # #  # # #  #   
         #     # # #    # #    #     # #      # #   ## #   #  
         #     # # #    # #    ######  ###### # #    # #    # 
+        '''
 
         if gatescondido or blink3 > 0.2:
             mimi.hide()
