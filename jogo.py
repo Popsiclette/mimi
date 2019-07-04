@@ -766,6 +766,8 @@ def jogo(janela):
     sixhearts.x = janela.width - sixhearts.width - 5
     sevenhearts.x = janela.width - sevenhearts.width - 5
 
+
+    fps = fps2 = segundo = decremento = 0
     while True:
 
         '''
@@ -861,6 +863,7 @@ def jogo(janela):
         mimi = mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, cao, carros, filhotes, carne, garrafas)
 
         filhotes = mov_filhotes(filhotes)
+
         for i in range(2):
             filhotes[i].draw()
             filhotes[i].update()
@@ -984,6 +987,18 @@ def jogo(janela):
 
         if teclado.key_pressed("ESC"):
             return 0
+
+        print(fps2)
+
+        segundo += janela.delta_time()
+        fps += 1
+        if segundo >= 1:
+            fps2 = fps
+            fps = 0
+            segundo = 0
+            if decremento != 9:
+                decremento += 1
+
 
         janela.update()
 
