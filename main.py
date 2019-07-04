@@ -5,7 +5,7 @@ import jogo as jogo
 
 janela = Window(1000,600)
 janela.set_title("Mimi")
-game_state = 1
+game_state = 0
 dificuldade = 1
 
 while True:
