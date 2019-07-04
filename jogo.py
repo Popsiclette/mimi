@@ -60,7 +60,7 @@ def mov_mimi(mimi, teclado, speed, janela):
         else:
             pulo += 500*janela.delta_time()
 
-        if teclado.key_pressed("RIGHT") and (mimi.x < janela.width/2 or (direcao == 0 and mimi.x + mimi.width < janela.width)):
+        if teclado.key_pressed("RIGHT") and (mimi.x < janela.width/2 or (direcao == 0 and mimi.x + mimi.width < janela.width) or (direcao == -1 and mimi.x + mimi.width < janela.width)):
             if andar == 0 and pulo == 0:
                 olhar = 0
                 andaresq = 0
@@ -73,7 +73,7 @@ def mov_mimi(mimi, teclado, speed, janela):
                 andar = 1
             mimi.x += speed
 
-        if teclado.key_pressed("LEFT") and mimi.x >= 0:
+        if teclado.key_pressed("LEFT") and mimi.x >= 0 and (direcao != -1 or mimi.x > janela.width/2 + mimi.width):
             if andaresq == 0 and pulo == 0:
                 olhar = 1
                 andar = 0
@@ -123,7 +123,7 @@ def pegarcarne(carne, mimi, janela):
 def predioatual(mimi, buildings):
     global predio
     for i in range(len(buildings)):
-        if buildings[i].x <= mimi.x + mimi.width <= buildings[i].x + buildings[i].width + 30:
+        if buildings[i].x - 30 <= mimi.x + mimi.width <= buildings[i].x + buildings[i].width + 30:
             predio = buildings[i]
 
 
@@ -145,7 +145,7 @@ def escalar(mimi, teclado, buildings, janela):
                 escalada = 1
                 predio = predios
 
-            if teclado.key_pressed("UP") and predios.x + predios.width - 50 < mimi.x < predios.x + predios.width and olhar == 1:
+            if teclado.key_pressed("UP") and predios.x + predios.width - 50 < mimi.x < predios.x + predios.width and olhar == 1 and mimi.y > predios.y:
                 if escalada == 0:
                     andar = 0
                     andaresq = 0
@@ -193,18 +193,21 @@ def escalar(mimi, teclado, buildings, janela):
 
 def topodopredio(mimi, janela):
     global chao, predio
-    if mimi.y <= predio.y and predio.x - 10 < mimi.x < predio.x + predio.width:
+    if mimi.y <= predio.y and predio.x - 30 < mimi.x < predio.x + predio.width:
         chao = predio.y
     else:
         chao = janela.height - 100
 
 
 def mov_cenario(mimi, teclado, static, animated, buildings, speed, janela, cao, carros, filhotes, carne):
-    global andar, pulo, escalada, ini, pegar, direcao, olhar
+    global andar, pulo, escalada, ini, pegar, direcao, olhar, andaresq
 
     speed *= direcao
 
-    if teclado.key_pressed("RIGHT") and mimi.x >= janela.width/2 and escalada == 0:
+    if direcao == 1 and mimi.x + mimi.width > janela.width/2 + 200 and escalada == 0:
+        mimi.x -= 1
+
+    if teclado.key_pressed("RIGHT") and mimi.x >= janela.width/2 and escalada == 0 and direcao == 1:
         if andar == 0 and pulo == 0:
             olhar = 0
             aux = mimi.x
@@ -214,6 +217,7 @@ def mov_cenario(mimi, teclado, static, animated, buildings, speed, janela, cao, 
             mimi.y = auy
             mimi.set_total_duration(1000)
             andar = 1
+            andaresq = 0
 
         ini -= speed
         for i in range(2):
@@ -230,11 +234,41 @@ def mov_cenario(mimi, teclado, static, animated, buildings, speed, janela, cao, 
 
         if pegar == 0:
             carne.x -= speed
+        if buildings[16].x + buildings[16].width + 100 <= janela.width and pegar == 0:
+            direcao = 0
+
+    if teclado.key_pressed("LEFT") and mimi.x <= janela.width/2 + mimi.width and escalada == 0 and direcao == -1:
+        if andaresq == 0 and pulo == 0:
+            olhar = 1
+            aux = mimi.x
+            auy = mimi.y
+            mimi = Sprite("images/mimiandarpratras.png", 12)
+            mimi.x = aux
+            mimi.y = auy
+            mimi.set_total_duration(1000)
+            andar = 0
+            andaresq = 1
+
+        ini -= speed
+        for i in range(2):
+            filhotes[i].x -= speed
+        for i in range(len(static)):
+            static[i].x -= speed
+        for i in range(len(animated)):
+            animated[i].x -= speed
+        for i in range(len(buildings)):
+            buildings[i].x -= speed
+        cao.x -= speed
+        if pegar == 0:
+            carne.x -= speed
         if buildings[16].x + buildings[16].width + 400 <= janela.width and pegar == 0:
             direcao = 0
 
         if pegar == 1:
             direcao = -1
+
+    if pegar == 1 and direcao == 0:
+        direcao = -1
 
     return mimi
 
