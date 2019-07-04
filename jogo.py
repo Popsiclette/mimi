@@ -3,7 +3,13 @@ from PPlay.gameimage import *
 from PPlay.sprite import *
 from random import uniform, choice
 
-# Variaveis globais
+  #####                                     
+ #     # #       ####  #####    ##   #      
+ #       #      #    # #    #  #  #  #      
+ #  #### #      #    # #####  #    # #      
+ #     # #      #    # #    # ###### #      
+ #     # #      #    # #    # #    # #      
+  #####  ######  ####  #####  #    # ###### 
 gravidade = 250
 pulo = 0
 escalada = 0
@@ -23,6 +29,13 @@ ini = 0
 pegar = 0
 direcao = 1
 
+ #######                                                   
+ #       #    # #    #  ####  ##### #  ####  #    #  ####  
+ #       #    # ##   # #    #   #   # #    # ##   # #      
+ #####   #    # # #  # #        #   # #    # # #  #  ####  
+ #       #    # #  # # #        #   # #    # #  # #      # 
+ #       #    # #   ## #    #   #   # #    # #   ## #    # 
+ #        ####  #    #  ####    #   #  ####  #    #  ####  
 
 def mov_mimi(mimi, teclado, speed, janela):
     global pulo, gravidade, andar, andaresq, pulei, olhar, direcao
@@ -110,7 +123,6 @@ def mov_mimi(mimi, teclado, speed, janela):
 
     return mimi
 
-
 def pegarcarne(carne, mimi, janela):
     global pegar
     if mimi.collided(carne):
@@ -119,13 +131,11 @@ def pegarcarne(carne, mimi, janela):
         carne.x = janela.width - carne.height
     return carne
 
-
 def predioatual(mimi, buildings):
     global predio
     for i in range(len(buildings)):
         if buildings[i].x - 30 <= mimi.x + mimi.width <= buildings[i].x + buildings[i].width + 30:
             predio = buildings[i]
-
 
 def escalar(mimi, teclado, buildings, janela):
     global escalada, olhar, andar, andaresq, predio
@@ -190,14 +200,12 @@ def escalar(mimi, teclado, buildings, janela):
 
     return mimi
 
-
 def topodopredio(mimi, janela):
     global chao, predio
     if mimi.y <= predio.y and predio.x - 30 < mimi.x < predio.x + predio.width:
         chao = predio.y
     else:
         chao = janela.height - 100
-
 
 def mov_cenario(mimi, teclado, static, animated, buildings, speed, janela, cao, carros, filhotes, carne):
     global andar, pulo, escalada, ini, pegar, direcao, olhar, andaresq
@@ -272,7 +280,6 @@ def mov_cenario(mimi, teclado, static, animated, buildings, speed, janela, cao, 
 
     return mimi
 
-
 def scrolling(fundo, fundofrente, fundo2, fundo2frente):
     if fundo2.x <= 0:
         fundo.x = fundo2.x + fundo2.width
@@ -280,7 +287,6 @@ def scrolling(fundo, fundofrente, fundo2, fundo2frente):
     if fundo.x <= 0:
         fundo2.x  = fundo.x + fundo.width
         fundo2frente.x = fundo2.x
-
 
 def mov_cao(cao, janela, speed):
     global olharcao, invertecao
@@ -308,10 +314,8 @@ def mov_cao(cao, janela, speed):
 
     return cao
 
-
 def mov_carro(carro, speed):
     carro.x -= 2*speed
-
 
 def cria_carro(janela, altura_rua):
     carros = ["images/carro.png", "images/carro2.png", "images/carro3.png", "images/carro4.png", "images/carro5.png"]
@@ -319,7 +323,6 @@ def cria_carro(janela, altura_rua):
     carro.x = janela.width
     carro.y = altura_rua + 222
     return carro
-
 
 def colisao(carros, cao, mimi):
     global vidas, imune
@@ -340,10 +343,8 @@ def colisao(carros, cao, mimi):
                 derrota()
     return False
 
-
 def derrota():
     quit()
-
 
 def mov_filhotes(filhotes):
     global ini
@@ -367,7 +368,6 @@ def mov_filhotes(filhotes):
             filhotes[i+2] *= -1
     return filhotes
 
-
 def tremebueiro(bueiro):
     aux = bueiro.x
     auy = bueiro.y
@@ -378,7 +378,6 @@ def tremebueiro(bueiro):
 
     return bueiro
 
-
 def explodebueiro(bueiro):
     aux = bueiro.x
     auy = bueiro.y
@@ -388,7 +387,6 @@ def explodebueiro(bueiro):
     bueiro.set_total_duration(1000)
 
     return bueiro
-
 
 def colisao_bueiro(bueiro, mimi):
     global vidas, imune
@@ -401,6 +399,14 @@ def colisao_bueiro(bueiro, mimi):
                 derrota()
     return False
 
+#
+ ######      ###    ##     ## ######## 
+##    ##    ## ##   ###   ### ##       
+##         ##   ##  #### #### ##       
+##   #### ##     ## ## ### ## ######   
+##    ##  ######### ##     ## ##       
+##    ##  ##     ## ##     ## ##       
+ ######   ##     ## ##     ## ########
 
 def jogo(janela):
     global pulo, chao, predio, imune, vidas
@@ -422,10 +428,8 @@ def jogo(janela):
     cao.set_total_duration(1000)
     mimi.set_total_duration(1000)
     animated = [cao, bombardeiro]
-    #static = [fundo, fundofrente, carne]
     static = [fundo, fundofrente, fundo2, fundo2frente]
 
-    # casas = ["images/casa.png", "images/casa2.png", "images/casa3.png", "images/casa4.png"]
     level = {
         0 : ["images/casa3.png", 572],
         1 : ["images/casa.png", 923],
@@ -457,19 +461,6 @@ def jogo(janela):
 
     altura_rua = janela.height - 340
     buildings = []
-
-    # carnes = []
-
-    #for i in range(15):
-    #    buildings.append(Sprite(choice(casas)))
-    #    carnes.append(Sprite("images/chicken.png"))
-    #    if i != 0:
-    #        buildings[i].x = buildings[i-1].x + buildings[i-1].width
-    #    else:
-    #        buildings[i].x = 0
-    #    buildings[i].y = janela.height - 61 - buildings[i].height
-    #    carnes[i].x = buildings[i].x + buildings[i].width / 2 - carne.width / 2
-    #    carnes[i].y = buildings[i].y - carne.height/2
 
     for i in range(17):
         buildings.append(Sprite(level[i][0]))
@@ -523,6 +514,14 @@ def jogo(janela):
     bueiro.set_total_duration(250)
     esgoto = 0
     colidirbueiro = False
+
+     #####                                                        
+    #     # #####  ####  #####  #    #   ##   #####  ####  #    # 
+    #         #   #    # #    # #    #  #  #    #   #    # #    # 
+     #####    #   #    # #    # #    # #    #   #   #      ###### 
+          #   #   #    # #####  # ## # ######   #   #      #    # 
+    #     #   #   #    # #      ##  ## #    #   #   #    # #    # 
+     #####    #    ####  #      #    # #    #   #    ####  #    #
 
     tempo = [(Sprite("images/yellow/meter_icon_holder_yellow.png")), (Sprite("images/yellow/timer.png"))]
     temp_bar_repete = [(Sprite("images/yellow/meter_bar_holder_center-repeating_yellow.png")),
@@ -641,7 +640,14 @@ def jogo(janela):
 
     while True:
 
-        ### piscar exclamação
+        #     #                                         ######                         
+        #  #  #   ##   #####  #    # # #    #  ####     #     # #      # #    # #    # 
+        #  #  #  #  #  #    # ##   # # ##   # #    #    #     # #      # ##   # #   #  
+        #  #  # #    # #    # # #  # # # #  # #         ######  #      # # #  # ####   
+        #  #  # ###### #####  #  # # # #  # # #  ###    #     # #      # #  # # #  #   
+        #  #  # #    # #   #  #   ## # #   ## #    #    #     # #      # #   ## #   #  
+        ## ##  #    # #    # #    # # #    #  ####     ######  ###### # #    # #    # 
+        
         if escondido or blink2 > 0.2:
             exclamacao.unhide()
             blink += janela.delta_time()
@@ -664,7 +670,14 @@ def jogo(janela):
         if cont == 1:
             blink2 += janela.delta_time()
 
-        ### piscar mimi
+        #     #               ######                         
+        ##   ## # #    # #    #     # #      # #    # #    # 
+        # # # # # ##  ## #    #     # #      # ##   # #   #  
+        #  #  # # # ## # #    ######  #      # # #  # ####   
+        #     # # #    # #    #     # #      # #  # # #  #   
+        #     # # #    # #    #     # #      # #   ## #   #  
+        #     # # #    # #    ######  ###### # #    # #    # 
+
         if gatescondido or blink3 > 0.2:
             mimi.hide()
             blink4 += janela.delta_time()
@@ -686,7 +699,8 @@ def jogo(janela):
 
         if cont3 == 1:
             blink3 += janela.delta_time()
-        ###
+
+        ####################################
 
         scrolling(fundo, fundofrente, fundo2, fundo2frente)
         fundo.draw()
@@ -809,7 +823,5 @@ def jogo(janela):
             sixhearts.draw()
         elif vidas == 7:
             sevenhearts.draw()
-
-    #    mov_cenario(mimi, teclado, static, animated, buildings, carnes, speed, janela)
 
         janela.update()

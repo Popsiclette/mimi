@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b03255df-67a4-4a1e-90e0-13405e4d87d1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/jogo.py" beforeDir="false" afterPath="$PROJECT_DIR$/jogo.py" afterDir="false" />
-    </list>
+    <list default="true" id="b03255df-67a4-4a1e-90e0-13405e4d87d1" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,8 +25,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/jogo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3204">
-              <caret line="11" column="12" lean-forward="true" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
+            <state relative-caret-position="198">
+              <caret line="22" column="8" lean-forward="true" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -84,11 +82,6 @@
             <path>
               <item name="mimi" type="b2602c69:ProjectViewProjectNode" />
               <item name="mimi" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="mimi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mimi" type="462c0819:PsiDirectoryNode" />
-              <item name="venv" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -192,8 +185,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jogo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3204">
-          <caret line="11" column="12" lean-forward="true" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
+        <state relative-caret-position="198">
+          <caret line="22" column="8" lean-forward="true" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
         </state>
       </provider>
     </entry>
