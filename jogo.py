@@ -30,6 +30,7 @@ inverteu = 0
 ini = 0
 pegar = 0
 direcao = 1
+olharpulo = 0
 
 '''
  #     #                                                                      
@@ -42,7 +43,7 @@ direcao = 1
 '''
 
 def mov_mimi(mimi, teclado, speed, janela):
-    global pulo, gravidade, andar, andaresq, pulei, olhar, direcao
+    global pulo, gravidade, andar, andaresq, pulei, olhar, direcao, olharpulo
 
     if escalada == 0:
         mimi.y = mimi.y + gravidade*janela.delta_time() + pulo*janela.delta_time()
@@ -50,6 +51,7 @@ def mov_mimi(mimi, teclado, speed, janela):
             mimi.y = chao
             pulo = 0
             if pulei == 1:
+                olharpulo = 0
                 pulei = 0
                 andar = 0
                 andaresq = 0
@@ -67,8 +69,10 @@ def mov_mimi(mimi, teclado, speed, janela):
                 aux = mimi.x
                 auy = mimi.y
                 if olhar == 1:
+                    olharpulo = 1
                     mimi = Sprite("images/mimipuloesq.png", 7)
                 else:
+                    olharpulo = -1
                     mimi = Sprite("images/mimipulo.png", 7)
                 mimi.set_total_duration(800)
                 mimi.x = aux
@@ -77,7 +81,7 @@ def mov_mimi(mimi, teclado, speed, janela):
         else:
             pulo += 500*janela.delta_time()
 
-        if teclado.key_pressed("RIGHT") and (mimi.x < janela.width/2 or (direcao == 0 and mimi.x + mimi.width < janela.width) or (direcao == -1 and mimi.x + mimi.width < janela.width)):
+        if teclado.key_pressed("RIGHT") and (mimi.x < janela.width/2 or (direcao == 0 and mimi.x + mimi.width < janela.width) or (direcao == -1 and mimi.x + mimi.width < janela.width)) and olharpulo != 1:
             if andar == 0 and pulo == 0:
                 olhar = 0
                 andaresq = 0
@@ -90,7 +94,7 @@ def mov_mimi(mimi, teclado, speed, janela):
                 andar = 1
             mimi.x += speed
 
-        if teclado.key_pressed("LEFT") and mimi.x >= 0 and (direcao != -1 or mimi.x > janela.width/2 + mimi.width):
+        if teclado.key_pressed("LEFT") and mimi.x >= 0 and (direcao != -1 or mimi.x > janela.width/2 + mimi.width) and olharpulo != -1:
             if andaresq == 0 and pulo == 0:
                 olhar = 1
                 andar = 0
@@ -1160,6 +1164,9 @@ def jogo(janela):
         tempogarrafa += janela.delta_time()
 
         mov_bombardeiro(bombardeiro, mimi)
+
+        if teclado.key_pressed("ESC"):
+            return 0
 
         janela.update()
 
