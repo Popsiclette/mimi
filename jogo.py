@@ -296,12 +296,21 @@ def mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, ca
 
 def scrolling(fundo, fundofrente, fundo2, fundo2frente):
     global pegar
-    if fundo2.x <= 0 and pegar == 0:
-        fundo.x = fundo2.x + fundo2.width
-        fundofrente.x = fundo.x
-    if fundo.x <= 0 and pegar == 0:
-        fundo2.x = fundo.x + fundo.width
-        fundo2frente.x = fundo2.x
+    if not pegar:
+        if fundo2.x <= 0 and fundo.x < fundo2.x:
+            fundo.x = fundo2.x + fundo2.width
+            fundofrente.x = fundo.x
+        if fundo.x <= 0 and fundo2.x < fundo.x:
+            fundo2.x = fundo.x + fundo.width
+            fundo2frente.x = fundo2.x
+    else:
+        if fundo.x >= 0 and fundo2.x > fundo.x:
+            fundo2.x = fundo.x - fundo2.width
+            fundo2frente.x = fundo2.x
+        if fundo2.x >= 0 and fundo.x > fundo2.x:
+            fundo.x = fundo2.x - fundo.width
+            fundofrente.x = fundo.x
+
 
 
 def mov_cao(cao, janela, speed):
