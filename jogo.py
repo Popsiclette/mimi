@@ -243,7 +243,7 @@ def mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, ca
         for i in range(2):
             filhotes[i].x -= speed
         for i in range(len(static)):
-            static[i].x -= speed
+            static[i].x -= speed + 2
         for i in range(len(buildings)):
             buildings[i].x -= speed
         for i in range(len(cao)):
@@ -278,7 +278,7 @@ def mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, ca
         for i in range(len(bombardeiro)):
             bombardeiro[i][0].x -= speed
         for i in range(len(static)):
-            static[i].x -= speed
+            static[i].x -= speed + 2
         for i in range(len(buildings)):
             buildings[i].x -= speed
         for i in range(len(cao)):
@@ -392,7 +392,7 @@ def criagarrafa(bombardeiro, mimi):
 def mov_garrafa(garrafas, janela):
     global gravidade
     for garrafa in garrafas:
-        garrafa[0].x += garrafa[1]*gravidade*janela.delta_time() + 5
+        garrafa[0].x += garrafa[1]*gravidade*janela.delta_time()
         if garrafa[0].y <= janela.height - 100:
             garrafa[0].y += 1/garrafa[2]*gravidade*janela.delta_time()
         else:
