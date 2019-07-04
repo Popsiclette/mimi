@@ -33,15 +33,14 @@ direcao = 1
 olharpulo = 0
 
 '''
- #######                                                   
- #       #    # #    #  ####  ##### #  ####  #    #  ####  
- #       #    # ##   # #    #   #   # #    # ##   # #      
- #####   #    # # #  # #        #   # #    # # #  #  ####  
- #       #    # #  # # #        #   # #    # #  # #      # 
- #       #    # #   ## #    #   #   # #    # #   ## #    # 
- #        ####  #    #  ####    #   #  ####  #    #  ####  
+ #     #                                                                      
+ ##   ## # #    # #    #    #  ####  #    # ###### #    # ###### #    # ##### 
+ # # # # # ##  ## #    ##  ## #    # #    # #      ##  ## #      ##   #   #   
+ #  #  # # # ## # #    # ## # #    # #    # #####  # ## # #####  # #  #   #   
+ #     # # #    # #    #    # #    # #    # #      #    # #      #  # #   #   
+ #     # # #    # #    #    # #    #  #  #  #      #    # #      #   ##   #   
+ #     # # #    # #    #    #  ####    ##   ###### #    # ###### #    #   # 
 '''
-
 
 def mov_mimi(mimi, teclado, speed, janela):
     global pulo, gravidade, andar, andaresq, pulei, olhar, direcao, olharpulo
@@ -133,6 +132,16 @@ def mov_mimi(mimi, teclado, speed, janela):
     return mimi
 
 
+'''
+ #     #                                                                             
+ ##   ## ######   ##   #####     ####   ####  #      #      #  ####  #  ####  #    # 
+ # # # # #       #  #    #      #    # #    # #      #      # #      # #    # ##   # 
+ #  #  # #####  #    #   #      #      #    # #      #      #  ####  # #    # # #  # 
+ #     # #      ######   #      #      #    # #      #      #      # # #    # #  # # 
+ #     # #      #    #   #      #    # #    # #      #      # #    # # #    # #   ## 
+ #     # ###### #    #   #       ####   ####  ###### ###### #  ####  #  ####  #    # 
+'''
+
 def pegarcarne(carne, mimi, janela):
     global pegar
     if mimi.collided(carne):
@@ -142,12 +151,32 @@ def pegarcarne(carne, mimi, janela):
     return carne
 
 
+'''
+  #####                                                                                            
+ #     # #    # #####  #####  ###### #    # #####    #####  #    # # #      #####  # #    #  ####  
+ #       #    # #    # #    # #      ##   #   #      #    # #    # # #      #    # # ##   # #    # 
+ #       #    # #    # #    # #####  # #  #   #      #####  #    # # #      #    # # # #  # #      
+ #       #    # #####  #####  #      #  # #   #      #    # #    # # #      #    # # #  # # #  ### 
+ #     # #    # #   #  #   #  #      #   ##   #      #    # #    # # #      #    # # #   ## #    # 
+  #####   ####  #    # #    # ###### #    #   #      #####   ####  # ###### #####  # #    #  ####  
+'''
+
 def predioatual(mimi, buildings):
     global predio
     for i in range(len(buildings)):
         if buildings[i].x - 30 <= mimi.x + mimi.width <= buildings[i].x + buildings[i].width + 30:
             predio = buildings[i]
 
+
+'''
+  #####                         
+ #     # #      # #    # #####  
+ #       #      # ##  ## #    # 
+ #       #      # # ## # #####  
+ #       #      # #    # #    # 
+ #     # #      # #    # #    # 
+  #####  ###### # #    # #####  
+'''
 
 def escalar(mimi, teclado, buildings, janela):
     global escalada, olhar, andar, andaresq, predio
@@ -213,6 +242,16 @@ def escalar(mimi, teclado, buildings, janela):
     return mimi
 
 
+'''
+ ######                                                                
+ #     # #    # # #      #####  # #    #  ####     #####  ####  #####  
+ #     # #    # # #      #    # # ##   # #    #      #   #    # #    # 
+ ######  #    # # #      #    # # # #  # #           #   #    # #    # 
+ #     # #    # # #      #    # # #  # # #  ###      #   #    # #####  
+ #     # #    # # #      #    # # #   ## #    #      #   #    # #      
+ ######   ####  # ###### #####  # #    #  ####       #    ####  #      
+'''
+
 def topodopredio(mimi, janela):
     global chao, predio
     if mimi.y <= predio.y and predio.x - 30 < mimi.x < predio.x + predio.width:
@@ -220,6 +259,16 @@ def topodopredio(mimi, janela):
     else:
         chao = janela.height - 100
 
+
+'''
+  #####                                                                                        
+ #     #  ####  ###### #    # ###### #####  #   #     ####   ####  #####   ####  #      #      
+ #       #    # #      ##   # #      #    #  # #     #      #    # #    # #    # #      #      
+  #####  #      #####  # #  # #####  #    #   #       ####  #      #    # #    # #      #      
+       # #      #      #  # # #      #####    #           # #      #####  #    # #      #      
+ #     # #    # #      #   ## #      #   #    #      #    # #    # #   #  #    # #      #      
+  #####   ####  ###### #    # ###### #    #   #       ####   ####  #    #  ####  ###### ###### 
+'''
 
 def mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, cao, carros, filhotes, carne, garrafas):
     global andar, pulo, escalada, ini, pegar, direcao, olhar, andaresq
@@ -298,6 +347,15 @@ def mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, ca
     return mimi
 
 
+'''
+ ######                                                                                                              
+ #     #   ##    ####  #    #  ####  #####   ####  #    # #    # #####      ####   ####  #####   ####  #      #      
+ #     #  #  #  #    # #   #  #    # #    # #    # #    # ##   # #    #    #      #    # #    # #    # #      #      
+ ######  #    # #      ####   #      #    # #    # #    # # #  # #    #     ####  #      #    # #    # #      #      
+ #     # ###### #      #  #   #  ### #####  #    # #    # #  # # #    #         # #      #####  #    # #      #      
+ #     # #    # #    # #   #  #    # #   #  #    # #    # #   ## #    #    #    # #    # #   #  #    # #      #      
+ ######  #    #  ####  #    #  ####  #    #  ####   ####  #    # #####      ####   ####  #    #  ####  ###### ###### 
+'''
 def scrolling(fundo, fundofrente, fundo2, fundo2frente):
     global pegar
     if not pegar:
@@ -315,6 +373,16 @@ def scrolling(fundo, fundofrente, fundo2, fundo2frente):
             fundo.x = fundo2.x - fundo.width
             fundofrente.x = fundo.x
 
+
+'''
+ ######                                                                          
+ #     #  ####   ####     #    #  ####  #    # ###### #    # ###### #    # ##### 
+ #     # #    # #    #    ##  ## #    # #    # #      ##  ## #      ##   #   #   
+ #     # #    # #         # ## # #    # #    # #####  # ## # #####  # #  #   #   
+ #     # #    # #  ###    #    # #    # #    # #      #    # #      #  # #   #   
+ #     # #    # #    #    #    # #    #  #  #  #      #    # #      #   ##   #   
+ ######   ####   ####     #    #  ####    ##   ###### #    # ###### #    #   #   
+'''
 
 def mov_cao(cao, janela, speed):
     global olharcao, invertecao
@@ -343,9 +411,30 @@ def mov_cao(cao, janela, speed):
     return cao
 
 
+'''
+  #####                                                                          
+ #     #   ##   #####     #    #  ####  #    # ###### #    # ###### #    # ##### 
+ #        #  #  #    #    ##  ## #    # #    # #      ##  ## #      ##   #   #   
+ #       #    # #    #    # ## # #    # #    # #####  # ## # #####  # #  #   #   
+ #       ###### #####     #    # #    # #    # #      #    # #      #  # #   #   
+ #     # #    # #   #     #    # #    #  #  #  #      #    # #      #   ##   #   
+  #####  #    # #    #    #    #  ####    ##   ###### #    # ###### #    #   #   
+'''
+
 def mov_carro(carro, speed):
     carro.x -= 2*speed
 
+
+'''
+
+  #####                                                                     
+ #     #   ##   #####      ####  #####  ######   ##   ##### #  ####  #    # 
+ #        #  #  #    #    #    # #    # #       #  #    #   # #    # ##   # 
+ #       #    # #    #    #      #    # #####  #    #   #   # #    # # #  # 
+ #       ###### #####     #      #####  #      ######   #   # #    # #  # # 
+ #     # #    # #   #     #    # #   #  #      #    #   #   # #    # #   ## 
+  #####  #    # #    #     ####  #    # ###### #    #   #   #  ####  #    # 
+'''
 
 def cria_carro(janela, altura_rua):
     carros = ["images/carro.png", "images/carro2.png", "images/carro3.png", "images/carro4.png", "images/carro5.png"]
@@ -355,30 +444,48 @@ def cria_carro(janela, altura_rua):
     return carro
 
 
+'''
+ #######                                                                                    
+ #       #    # ###### #    # #   #     ####   ####  #      #      #  ####  #  ####  #    # 
+ #       ##   # #      ##  ##  # #     #    # #    # #      #      # #      # #    # ##   # 
+ #####   # #  # #####  # ## #   #      #      #    # #      #      #  ####  # #    # # #  # 
+ #       #  # # #      #    #   #      #      #    # #      #      #      # # #    # #  # # 
+ #       #   ## #      #    #   #      #    # #    # #      #      # #    # # #    # #   ## 
+ ####### #    # ###### #    #   #       ####   ####  ###### ###### #  ####  #  ####  #    # 
+ '''
 def colisao(carros, caos, mimi, garrafas):
     global vidas, imune
     for carro in carros:
         if mimi.collided(carro):
-            vidas -= 1
+            #vidas -= 1
             if vidas > 0:
                 imune = True
                 return True
     for cao in caos:
         if mimi.collided(cao):
-                vidas -= 1
+                #vidas -= 1
                 if vidas > 0:
                     imune = True
                     return True
     for garrafa in garrafas:
         if mimi.collided(garrafa[0]):
             garrafas.remove(garrafa)
-            vidas -= 1
+            #vidas -= 1
             if vidas > 0:
                 imune = True
                 return True
     return False
 
 
+'''
+ ######                                                                                        
+ #     #  ####  ##### ##### #      ######     ####  #####  ######   ##   ##### #  ####  #    # 
+ #     # #    #   #     #   #      #         #    # #    # #       #  #    #   # #    # ##   # 
+ ######  #    #   #     #   #      #####     #      #    # #####  #    #   #   # #    # # #  # 
+ #     # #    #   #     #   #      #         #      #####  #      ######   #   # #    # #  # # 
+ #     # #    #   #     #   #      #         #    # #   #  #      #    #   #   # #    # #   ## 
+ ######   ####    #     #   ###### ######     ####  #    # ###### #    #   #   #  ####  #    #                                                                                             
+'''
 def criagarrafa(bombardeiro, mimi):
     direcao = -1
     if bombardeiro[0].x < mimi.x:
@@ -389,6 +496,15 @@ def criagarrafa(bombardeiro, mimi):
     garrafa.set_total_duration(700)
     return [garrafa, direcao, 2]
 
+'''
+ ######                                                                                             
+ #     #  ####  ##### ##### #      ######    #    #  ####  #    # ###### #    # ###### #    # ##### 
+ #     # #    #   #     #   #      #         ##  ## #    # #    # #      ##  ## #      ##   #   #   
+ ######  #    #   #     #   #      #####     # ## # #    # #    # #####  # ## # #####  # #  #   #   
+ #     # #    #   #     #   #      #         #    # #    # #    # #      #    # #      #  # #   #   
+ #     # #    #   #     #   #      #         #    # #    #  #  #  #      #    # #      #   ##   #   
+ ######   ####    #     #   ###### ######    #    #  ####    ##   ###### #    # ###### #    #   #   
+'''
 
 def mov_garrafa(garrafas, janela):
     global gravidade
@@ -403,6 +519,15 @@ def mov_garrafa(garrafas, janela):
     return garrafas
 
 
+'''
+  #####                                                                          
+ #     # #       ####  #####    ##   #         #####  ######  ####  ###### ##### 
+ #       #      #    # #    #  #  #  #         #    # #      #      #        #   
+ #  #### #      #    # #####  #    # #         #    # #####   ####  #####    #   
+ #     # #      #    # #    # ###### #         #####  #           # #        #   
+ #     # #      #    # #    # #    # #         #   #  #      #    # #        #   
+  #####  ######  ####  #####  #    # ######    #    # ######  ####  ######   #   
+'''
 def resetaglobais():
     global pulo, escalada, predio, andar, andaresq, pulei, olhar, chao, olharcao, invertecao, vidas, imune, invertefilhote, inverteu, ini, pegar, direcao
 
@@ -425,6 +550,15 @@ def resetaglobais():
     direcao = 1
 
 
+'''
+ #######                                              
+ #       #    # #####      ####    ##   #    # ###### 
+ #       ##   # #    #    #    #  #  #  ##  ## #      
+ #####   # #  # #    #    #      #    # # ## # #####  
+ #       #  # # #    #    #  ### ###### #    # #      
+ #       #   ## #    #    #    # #    # #    # #      
+ ####### #    # #####      ####  #    # #    # ######                                                    
+'''
 def derrota():
     resetaglobais()
     return 0
@@ -435,6 +569,15 @@ def vitoria():
     return 2
 
 
+'''
+ #    #                                    
+ #   #  # ##### ##### ###### #    #  ####  
+ #  #   #   #     #   #      ##   # #      
+ ###    #   #     #   #####  # #  #  ####  
+ #  #   #   #     #   #      #  # #      # 
+ #   #  #   #     #   #      #   ## #    # 
+ #    # #   #     #   ###### #    #  ####                                          
+'''
 def mov_filhotes(filhotes):
     global ini
     for i in range(2):
@@ -458,6 +601,15 @@ def mov_filhotes(filhotes):
     return filhotes
 
 
+'''
+ #     #                                                                                 
+ ##   ##   ##   #    # #    #  ####  #      ######     ####  #    #   ##   #    # ###### 
+ # # # #  #  #  ##   # #    # #    # #      #         #      #    #  #  #  #   #  #      
+ #  #  # #    # # #  # ###### #    # #      #####      ####  ###### #    # ####   #####  
+ #     # ###### #  # # #    # #    # #      #              # #    # ###### #  #   #      
+ #     # #    # #   ## #    # #    # #      #         #    # #    # #    # #   #  #      
+ #     # #    # #    # #    #  ####  ###### ######     ####  #    # #    # #    # ###### 
+'''
 def tremebueiro(bueiro):
     aux = bueiro.x
     auy = bueiro.y
@@ -469,6 +621,15 @@ def tremebueiro(bueiro):
     return bueiro
 
 
+'''
+ #     #                                                                                               
+ ##   ##   ##   #    # #    #  ####  #      ######    ###### #    # #####  #       ####  #####  ###### 
+ # # # #  #  #  ##   # #    # #    # #      #         #       #  #  #    # #      #    # #    # #      
+ #  #  # #    # # #  # ###### #    # #      #####     #####    ##   #    # #      #    # #    # #####  
+ #     # ###### #  # # #    # #    # #      #         #        ##   #####  #      #    # #    # #      
+ #     # #    # #   ## #    # #    # #      #         #       #  #  #      #      #    # #    # #      
+ #     # #    # #    # #    #  ####  ###### ######    ###### #    # #      ######  ####  #####  ######                                                                                                     
+'''
 def explodebueiro(bueiro):
     aux = bueiro.x
     auy = bueiro.y
@@ -480,16 +641,35 @@ def explodebueiro(bueiro):
     return bueiro
 
 
+'''
+ #     #                                                                                                   
+ ##   ##   ##   #    # #    #  ####  #      ######     ####   ####  #      #      #  ####  #  ####  #    # 
+ # # # #  #  #  ##   # #    # #    # #      #         #    # #    # #      #      # #      # #    # ##   # 
+ #  #  # #    # # #  # ###### #    # #      #####     #      #    # #      #      #  ####  # #    # # #  # 
+ #     # ###### #  # # #    # #    # #      #         #      #    # #      #      #      # # #    # #  # # 
+ #     # #    # #   ## #    # #    # #      #         #    # #    # #      #      # #    # # #    # #   ## 
+ #     # #    # #    # #    #  ####  ###### ######     ####   ####  ###### ###### #  ####  #  ####  #    #                                                                                                         
+'''
 def colisao_bueiro(bueiros, mimi):
     global vidas, imune
     for bueiro in bueiros:
         if mimi.collided(bueiro):
-                vidas -= 1
+                #vidas -= 1
                 if vidas >= 0:
                     imune = True
                     return True
     return False
 
+
+'''
+ #######                                                                                                     
+    #    #    # #####   ####  #    # ###### #####     #    #  ####  #    # ###### #    # ###### #    # ##### 
+    #    #    # #    # #    # #    # #      #    #    ##  ## #    # #    # #      ##  ## #      ##   #   #   
+    #    ###### #    # #    # #    # #####  #    #    # ## # #    # #    # #####  # ## # #####  # #  #   #   
+    #    #    # #####  #    # # ## # #      #####     #    # #    # #    # #      #    # #      #  # #   #   
+    #    #    # #   #  #    # ##  ## #      #   #     #    # #    #  #  #  #      #    # #      #   ##   #   
+    #    #    # #    #  ####  #    # ###### #    #    #    #  ####    ##   ###### #    # ###### #    #   #                                                                                                             
+'''
 
 def mov_bombardeiro(bombardeiros, mimi):
     for i in range(len(bombardeiros)):
@@ -544,23 +724,26 @@ def jogo(janela):
     static = [fundo, fundofrente, fundo2, fundo2frente]
 
     level = {
-        0 : ["images/casa3.png", 572],
-        1 : ["images/casa.png", 923],
-        2 : ["images/casa2.png", 1210],
-        3 : ["images/casa.png", 1641],
-        4 : ["images/predio.png", 2215],
-        5 : ["images/casa2.png", 2585],
-        6 : ["images/predio.png", 2854],
-        7 : ["images/predio.png", 3226],
-        8 : ["images/casa3.png", 3566],
-        9 : ["images/casa2.png", 3871],
-        10 : ["images/casa.png", 4505],
-        11 : ["images/casa2.png", 4828],
-        12 : ["images/casa.png", 5177],
-        13 : ["images/casa2.png", 5918],
-        14 : ["images/casa3.png", 6280],
-        15 : ["images/predio.png", 6585],
-        16 : ["images/casa2.png", 6884]
+        0 : ["images/casa.png", 546],
+        1 : ["images/casa3.png", 848],
+        2 : ["images/casa2.png", 1204],
+        3 : ["images/casa4.png", 1504],
+        4 : ["images/casa2.png", 1938],
+        5 : ["images/predio.png", 2275],
+        6 : ["images/casa3.png", 2680],
+        7 : ["images/predio.png", 3021],
+        8 : ["images/casa4.png", 3393],
+        9 : ["images/casa2.png", 3699],
+        10 : ["images/casa.png", 4058],
+        11 : ["images/casa3.png", 4458],
+        12 : ["images/casa.png", 4822],
+        13 : ["images/casa4.png", 5094],
+        14 : ["images/predio.png", 5411],
+        15 : ["images/casa.png", 5822],
+        16 : ["images/casa2.png", 6211],
+        17 : ["images/casa3.png", 6604],
+        18 : ["images/predio.png", 6865],
+        19 : ["images/casa2.png", 7341],
     }
 
     fundo.x = 0
@@ -577,7 +760,7 @@ def jogo(janela):
 
     garrafas = []
 
-    for i in range(17):
+    for i in range(20):
         buildings.append(Sprite(level[i][0]))
         buildings[i].x = level[i][1]
         buildings[i].y = janela.height - 61 - buildings[i].height
