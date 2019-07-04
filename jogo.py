@@ -257,7 +257,7 @@ def mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, ca
         if buildings[16].x + buildings[16].width + 100 <= janela.width and pegar == 0:
             direcao = 0
 
-    if teclado.key_pressed("LEFT") and mimi.x <= janela.width/2 + mimi.width and escalada == 0 and direcao == -1:
+    elif teclado.key_pressed("LEFT") and mimi.x <= janela.width/2 + mimi.width and escalada == 0 and direcao == -1:
         if andaresq == 0 and pulo == 0:
             olhar = 1
             aux = mimi.x
@@ -295,12 +295,19 @@ def mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, ca
     return mimi
 
 
-def scrolling(fundo, fundofrente, fundo2, fundo2frente):
-    if fundo2.x <= 0:
+def scrolling(fundo, fundofrente, fundo2, fundo2frente, janela):
+    global pegar
+    if fundo2.x <= 0 and pegar == 0:
         fundo.x = fundo2.x + fundo2.width
         fundofrente.x = fundo.x
-    if fundo.x <= 0:
-        fundo2.x  = fundo.x + fundo.width
+    if fundo.x <= 0 and pegar == 0:
+        fundo2.x = fundo.x + fundo.width
+        fundo2frente.x = fundo2.x
+    if fundo2.width + fundo2.x >= janela.width and pegar == 1:
+        fundo.x = fundo2.x + fundo2.width
+        fundofrente.x = fundo.x
+    if fundo.width + fundo.x >= janela.width and pegar == 1:
+        fundo2.x = fundo.x + fundo.width
         fundo2frente.x = fundo2.x
 
 
@@ -343,23 +350,25 @@ def cria_carro(janela, altura_rua):
     return carro
 
 
-def colisao(carros, cao, mimi):
+def colisao(carros, cao, mimi, garrafas):
     global vidas, imune
     for carro in carros:
         if mimi.collided(carro):
             vidas -= 1
-            if vidas >= 0:
+            if vidas > 0:
                 imune = True
                 return True
-            else:
-                derrota()
     if mimi.collided(cao):
             vidas -= 1
-            if vidas >= 0:
+            if vidas > 0:
                 imune = True
                 return True
-            else:
-                derrota()
+    for garrafa in garrafas:
+        if mimi.collided(garrafa[0]):
+            vidas -= 1
+            if vidas > 0:
+                imune = True
+                return True
     return False
 
 
@@ -387,8 +396,36 @@ def mov_garrafa(garrafas, janela):
     return garrafas
 
 
+def resetaglobais():
+    global pulo, escalada, predio, andar, andaresq, pulei, olhar, chao, olharcao, invertecao, vidas, imune, invertefilhote, inverteu, ini, pegar, direcao
+
+    pulo = 0
+    escalada = 0
+    predio = 0
+    andar = 0
+    andaresq = 0
+    pulei = 0
+    olhar = 0
+    chao = 0
+    olharcao = 1
+    invertecao = 0
+    vidas = 7
+    imune = False
+    invertefilhote = 1
+    inverteu = 0
+    ini = 0
+    pegar = 0
+    direcao = 1
+
+
 def derrota():
-    quit()
+    resetaglobais()
+    return 0
+
+
+def vitoria():
+    resetaglobais()
+    return 2
 
 
 def mov_filhotes(filhotes):
@@ -460,7 +497,7 @@ def colisao_bueiro(bueiro, mimi):
 
 
 def jogo(janela):
-    global pulo, chao, predio, imune, vidas
+    global pulo, chao, predio, imune, vidas, pegar
 
     teclado = Window.get_keyboard()
 
@@ -771,7 +808,7 @@ def jogo(janela):
 
         ####################################
 
-        scrolling(fundo, fundofrente, fundo2, fundo2frente)
+        scrolling(fundo, fundofrente, fundo2, fundo2frente, janela)
         fundo.draw()
         fundo2.draw()
         lua.draw()
@@ -813,7 +850,7 @@ def jogo(janela):
                 carros.remove(carro)
 
         if imune is False:
-            gatescondido = colisao(carros, cao, mimi)
+            gatescondido = colisao(carros, cao, mimi, garrafas)
 
         topodopredio(mimi, janela)
         predioatual(mimi, buildings)
@@ -876,9 +913,17 @@ def jogo(janela):
                 tempo_dir.hide()
                 crono_1 = False
             else:
-                temp_repete.pop(-1)
+                try:
+                    temp_repete.pop(-1)
+                except IndexError:
+                    return derrota()
 
-        if vidas == 1:
+        for i in range(2):
+            if mimi.collided(filhotes[i]) and pegar == 1:
+                return vitoria()
+        if vidas == 0:
+            return derrota()
+        elif vidas == 1:
             oneheart.draw()
         elif vidas == 2:
             twohearts.draw()
