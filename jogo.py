@@ -500,7 +500,7 @@ def jogo(janela):
     bombardeiro.y = cao.y - 39
 
     speed = 5
-    lua.x = 30
+    lua.x = janela.width/2 - lua.width/2
     lua.y = 20
 
     tempo_car = 0
@@ -519,8 +519,8 @@ def jogo(janela):
     cont2 = cont = 0
 
     exclamacao = Sprite("images/exclamacao.png")
-    exclamacao.x = janela.width - exclamacao.width - 20
-    exclamacao.y = janela.height - exclamacao.height - 20
+    exclamacao.x = janela.width - exclamacao.width - 40
+    exclamacao.y = janela.height - exclamacao.height - 40
     exclamacao.hide()
 
     carros = []
