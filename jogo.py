@@ -377,7 +377,7 @@ def criagarrafa(bombardeiro, mimi):
 def mov_garrafa(garrafas, janela):
     global gravidade
     for garrafa in garrafas:
-        garrafa[0].x += garrafa[1]*gravidade*janela.delta_time()
+        garrafa[0].x += garrafa[1]*gravidade*janela.delta_time() + 5
         if garrafa[0].y <= janela.height - 100:
             garrafa[0].y += 1/garrafa[2]*gravidade*janela.delta_time()
         else:
