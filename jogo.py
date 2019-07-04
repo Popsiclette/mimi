@@ -223,7 +223,7 @@ def scrolling(fundo, fundofrente, fundo2, fundo2frente):
         fundo.x = fundo2.x + fundo2.width
         fundofrente.x = fundo.x
     if fundo.x <= 0:
-        fundo2.x = fundo.x + fundo.width
+        fundo2.x  = fundo.x + fundo.width
         fundo2frente.x = fundo2.x
 
 
@@ -559,6 +559,32 @@ def jogo(janela):
     cronometro = 0
     crono_1 = True
     segs = 5
+
+    #     #
+    #     # ######   ##   #      ##### #    #
+    #     # #       #  #  #        #   #    #
+    ####### #####  #    # #        #   ######
+    #     # #      ###### #        #   #    #
+    #     # #      #    # #        #   #    #
+    #     # ###### #    # ######   #   #    #
+
+    oneheart = GameImage("images/health/1heart.png")
+    twohearts = GameImage("images/health/2hearts.png")
+    threehearts = GameImage("images/health/3hearts.png")
+    fourhearts = GameImage("images/health/4hearts.png")
+    fivehearts = GameImage("images/health/5hearts.png")
+    sixhearts = GameImage("images/health/6hearts.png")
+    sevenhearts = GameImage("images/health/7hearts.png")
+
+    oneheart.y = twohearts.y = threehearts.y = fourhearts.y = fivehearts.y = sixhearts.y = sevenhearts.y = 5
+    oneheart.x = janela.width - oneheart.width - 5
+    twohearts.x = janela.width - twohearts.width - 5
+    threehearts.x = janela.width - threehearts.width - 5
+    fourhearts.x = janela.width - fourhearts.width - 5
+    fivehearts.x = janela.width - fivehearts.width - 5
+    sixhearts.x = janela.width - sixhearts.width - 5
+    sevenhearts.x = janela.width - sevenhearts.width - 5
+
     while True:
 
         ### piscar exclamação
@@ -712,6 +738,21 @@ def jogo(janela):
                 crono_1 = False
             else:
                 temp_repete.pop(-1)
+
+        if vidas == 1:
+            oneheart.draw()
+        elif vidas == 2:
+            twohearts.draw()
+        elif vidas == 3:
+            threehearts.draw()
+        elif vidas == 4:
+            fourhearts.draw()
+        elif vidas == 5:
+            fivehearts.draw()
+        elif vidas == 6:
+            sixhearts.draw()
+        elif vidas == 7:
+            sevenhearts.draw()
 
     #    mov_cenario(mimi, teclado, static, animated, buildings, carnes, speed, janela)
 
