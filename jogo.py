@@ -982,5 +982,8 @@ def jogo(janela):
 
         mov_bombardeiro(bombardeiro, mimi)
 
+        if teclado.key_pressed("ESC"):
+            return 0
+
         janela.update()
 
