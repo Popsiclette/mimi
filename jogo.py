@@ -243,7 +243,7 @@ def mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, ca
         for i in range(2):
             filhotes[i].x -= speed
         for i in range(len(static)):
-            static[i].x -= speed + 2
+            static[i].x -= speed - 2
         for i in range(len(buildings)):
             buildings[i].x -= speed
         for i in range(len(cao)):
