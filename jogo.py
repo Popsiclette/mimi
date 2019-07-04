@@ -41,6 +41,7 @@ direcao = 1
  #        ####  #    #  ####    #   #  ####  #    #  ####  
 '''
 
+
 def mov_mimi(mimi, teclado, speed, janela):
     global pulo, gravidade, andar, andaresq, pulei, olhar, direcao
 
@@ -216,7 +217,7 @@ def topodopredio(mimi, janela):
         chao = janela.height - 100
 
 
-def mov_cenario(mimi, teclado, static, animated, buildings, speed, janela, cao, carros, filhotes, carne):
+def mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, cao, carros, filhotes, carne, garrafas):
     global andar, pulo, escalada, ini, pegar, direcao, olhar, andaresq
 
     speed *= direcao
@@ -237,15 +238,17 @@ def mov_cenario(mimi, teclado, static, animated, buildings, speed, janela, cao, 
             andaresq = 0
 
         ini -= speed
+        for i in range(len(garrafas)):
+            garrafas[i][0].x -= speed
         for i in range(2):
             filhotes[i].x -= speed
         for i in range(len(static)):
             static[i].x -= speed
-        for i in range(len(animated)):
-            animated[i].x -= speed
         for i in range(len(buildings)):
             buildings[i].x -= speed
         cao.x -= speed
+        for i in range(len(bombardeiro)):
+            bombardeiro[i].x -= speed
         for i in range(len(carros)):
             carros[i].x -= speed
 
@@ -267,12 +270,14 @@ def mov_cenario(mimi, teclado, static, animated, buildings, speed, janela, cao, 
             andaresq = 1
 
         ini -= speed
+        for i in range(len(garrafas)):
+            garrafas[i][0].x -= speed
         for i in range(2):
             filhotes[i].x -= speed
+        for i in range(len(bombardeiro)):
+            bombardeiro[i].x -= speed
         for i in range(len(static)):
             static[i].x -= speed
-        for i in range(len(animated)):
-            animated[i].x -= speed
         for i in range(len(buildings)):
             buildings[i].x -= speed
         cao.x -= speed
@@ -358,6 +363,28 @@ def colisao(carros, cao, mimi):
     return False
 
 
+def criagarrafa(bombardeiro, mimi):
+    direcao = -1
+    if bombardeiro.x < mimi.x:
+        direcao = 1
+    garrafa = Sprite("images/garrafa.png", 8)
+    garrafa.x = bombardeiro.x
+    garrafa.y = bombardeiro.y
+    garrafa.set_total_duration(700)
+    return [garrafa, direcao]
+
+
+def mov_garrafa(garrafas, janela):
+    global gravidade
+    for garrafa in garrafas:
+        garrafa[0].x += garrafa[1]*gravidade*janela.delta_time() + 20*janela.delta_time()
+        if garrafa[0].y <= janela.height - 100:
+            garrafa[0].y += gravidade*janela.delta_time() + 120*janela.delta_time()
+        else:
+            garrafas.remove(garrafa)
+    return garrafas
+
+
 def derrota():
     quit()
 
@@ -429,13 +456,14 @@ def colisao_bueiro(bueiro, mimi):
  ######   ##     ## ##     ## ########
 '''
 
+
 def jogo(janela):
     global pulo, chao, predio, imune, vidas
 
     teclado = Window.get_keyboard()
 
-    bombardeiro = Sprite("images/parado.png", 6)
-    bombardeiro.set_total_duration(500)
+    bombardeiro = [Sprite("images/parado.png", 6)]
+    bombardeiro[0].set_total_duration(800)
     casa = Sprite("images/casa2.png")
     fundo = GameImage("images/fundoatras.png")
     fundofrente = GameImage("images/fundofrente.png")
@@ -448,7 +476,6 @@ def jogo(janela):
     bueiro = Sprite("images/bueiroparado.png", 1)
     cao.set_total_duration(1000)
     mimi.set_total_duration(1000)
-    animated = [cao, bombardeiro]
     static = [fundo, fundofrente, fundo2, fundo2frente]
 
     level = {
@@ -483,6 +510,8 @@ def jogo(janela):
     altura_rua = janela.height - 340
     buildings = []
 
+    garrafas = []
+
     for i in range(17):
         buildings.append(Sprite(level[i][0]))
         buildings[i].x = level[i][1]
@@ -496,8 +525,9 @@ def jogo(janela):
     cao.y = janela.height - 108
     cao.x += casa.width
     casa.y = altura_rua + 1
-    bombardeiro.x = janela.width
-    bombardeiro.y = cao.y - 39
+    bombardeiro[0].x = janela.width
+    bombardeiro[0].y = 100
+    tempogarrafa = 0
 
     speed = 5
     lua.x = janela.width/2 - lua.width/2
@@ -756,14 +786,14 @@ def jogo(janela):
         cao.update()
         cao = mov_cao(cao, janela, speed)
 
-        bombardeiro.draw()
-        bombardeiro.update()
+        bombardeiro[0].draw()
+        bombardeiro[0].update()
 
         mimi.draw()
         mimi.update()
         mimi = mov_mimi(mimi, teclado, speed, janela)
         mimi = escalar(mimi, teclado, buildings, janela)
-        mimi = mov_cenario(mimi, teclado, static, animated, buildings, speed, janela, cao, carros, filhotes, carne)
+        mimi = mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, cao, carros, filhotes, carne, garrafas)
 
         filhotes = mov_filhotes(filhotes)
         for i in range(2):
@@ -861,5 +891,14 @@ def jogo(janela):
         elif vidas == 7:
             sevenhearts.draw()
 
+        for garrafa in garrafas:
+            garrafa[0].draw()
+            garrafa[0].update()
+        if tempogarrafa >= 1:
+            tempogarrafa = 0
+            for pessoa in bombardeiro:
+                garrafas.append(criagarrafa(pessoa, mimi))
+        garrafas = mov_garrafa(garrafas, janela)
+        tempogarrafa += janela.delta_time()
         janela.update()
 
