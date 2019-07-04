@@ -453,20 +453,20 @@ def colisao(carros, caos, mimi, garrafas):
     global vidas, imune
     for carro in carros:
         if mimi.collided(carro):
-            vidas -= 1
+            #vidas -= 1
             if vidas > 0:
                 imune = True
                 return True
     for cao in caos:
         if mimi.collided(cao):
-                vidas -= 1
+                #vidas -= 1
                 if vidas > 0:
                     imune = True
                     return True
     for garrafa in garrafas:
         if mimi.collided(garrafa[0]):
             garrafas.remove(garrafa)
-            vidas -= 1
+            #vidas -= 1
             if vidas > 0:
                 imune = True
                 return True
@@ -650,7 +650,7 @@ def colisao_bueiro(bueiros, mimi):
     global vidas, imune
     for bueiro in bueiros:
         if mimi.collided(bueiro):
-                vidas -= 1
+                #vidas -= 1
                 if vidas >= 0:
                     imune = True
                     return True
@@ -720,23 +720,26 @@ def jogo(janela):
     static = [fundo, fundofrente, fundo2, fundo2frente]
 
     level = {
-        0 : ["images/casa3.png", 572],
-        1 : ["images/casa.png", 923],
-        2 : ["images/casa2.png", 1210],
-        3 : ["images/casa.png", 1641],
-        4 : ["images/predio.png", 2215],
-        5 : ["images/casa2.png", 2585],
-        6 : ["images/predio.png", 2854],
-        7 : ["images/predio.png", 3226],
-        8 : ["images/casa3.png", 3566],
-        9 : ["images/casa2.png", 3871],
-        10 : ["images/casa.png", 4505],
-        11 : ["images/casa2.png", 4828],
-        12 : ["images/casa.png", 5177],
-        13 : ["images/casa2.png", 5918],
-        14 : ["images/casa3.png", 6280],
-        15 : ["images/predio.png", 6585],
-        16 : ["images/casa2.png", 6884]
+        0 : ["images/casa.png", 546],
+        1 : ["images/casa3.png", 848],
+        2 : ["images/casa2.png", 1204],
+        3 : ["images/casa4.png", 1504],
+        4 : ["images/casa2.png", 1938],
+        5 : ["images/predio.png", 2275],
+        6 : ["images/casa3.png", 2680],
+        7 : ["images/predio.png", 3021],
+        8 : ["images/casa4.png", 3393],
+        9 : ["images/casa2.png", 3699],
+        10 : ["images/casa.png", 4058],
+        11 : ["images/casa3.png", 4458],
+        12 : ["images/casa.png", 4822],
+        13 : ["images/casa4.png", 5094],
+        14 : ["images/predio.png", 5411],
+        15 : ["images/casa.png", 5822],
+        16 : ["images/casa2.png", 6211],
+        17 : ["images/casa3.png", 6604],
+        18 : ["images/predio.png", 6865],
+        19 : ["images/casa2.png", 7341],
     }
 
     fundo.x = 0
@@ -753,7 +756,7 @@ def jogo(janela):
 
     garrafas = []
 
-    for i in range(17):
+    for i in range(20):
         buildings.append(Sprite(level[i][0]))
         buildings[i].x = level[i][1]
         buildings[i].y = janela.height - 61 - buildings[i].height
