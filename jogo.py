@@ -447,6 +447,7 @@ def colisao_bueiro(bueiro, mimi):
                 derrota()
     return False
 
+
 '''
  ######      ###    ##     ## ######## 
 ##    ##    ## ##   ###   ### ##       
@@ -531,7 +532,8 @@ def jogo(janela):
     tempogarrafa = 0
 
     speed = 5
-    lua.x += 15
+    lua.x = janela.width/2 - lua.width/2
+    lua.y = 20
 
     tempo_car = 0
     rand_car = uniform(2, 6)
@@ -549,8 +551,8 @@ def jogo(janela):
     cont2 = cont = 0
 
     exclamacao = Sprite("images/exclamacao.png")
-    exclamacao.x = janela.width - exclamacao.width - 20
-    exclamacao.y = janela.height - exclamacao.height - 20
+    exclamacao.x = janela.width - exclamacao.width - 40
+    exclamacao.y = janela.height - exclamacao.height - 40
     exclamacao.hide()
 
     carros = []
@@ -649,19 +651,26 @@ def jogo(janela):
     tempo_bar_dir = (Sprite("images/yellow/meter_bar_holder_right_edge_yellow.png"))
     tempo_dir = (Sprite("images/yellow/meter_bar_right_edge_yellow.png"))
 
-    tempo[1].x = tempo[0].width/2 - tempo[1].width/2
-    tempo[1].y = tempo[0].height/2 - tempo[1].height/2
+    tempo[0].x = 5
+    tempo[0].y = 5
+    tempo[1].x = tempo[0].width/2 - tempo[1].width/2 + 5
+    tempo[1].y = tempo[0].height/2 - tempo[1].height/2 + 5
+
     aux = 0
     aux += tempo[0].width - 10
     for barra in temp_repete:
         aux += barra.width
         barra.x = aux
+        barra.y = 10
     tempo_dir.x = aux + temp_repete[0].width
+    tempo_dir.y = 10
     aux = 0
     for barra in temp_bar_repete:
         aux += barra.width
         barra.x = aux
+        barra.y = 10
     tempo_bar_dir.x = aux + temp_bar_repete[0].width
+    tempo_bar_dir.y = 10
 
     cronometro = 0
     crono_1 = True
@@ -894,3 +903,4 @@ def jogo(janela):
         garrafas = mov_garrafa(garrafas, janela)
         tempogarrafa += janela.delta_time()
         janela.update()
+
