@@ -288,11 +288,9 @@ def mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, ca
         if ini == 0 and pegar == 1:
             direcao = 0
 
-        if pegar == 1:
-            direcao = -1
-
-    if pegar == 1 and direcao == 0:
+    if pegar == 1 and ini != 0:
         direcao = -1
+
     return mimi
 
 
