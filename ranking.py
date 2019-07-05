@@ -69,8 +69,6 @@ def appendranking(janela, tempo):
     fundo2.x = fundo2frente.x = fundo.width
     static = [fundo, fundofrente, fundo2, fundo2frente]
 
-    speed = 100
-
     q.y = janela.height/2
     w.y = janela.height/2
     e.y = janela.height/2
@@ -250,7 +248,7 @@ def appendranking(janela, tempo):
             string += ' '
             pressionado = 1
         if mouse.is_over_object(enter) and mouse.is_button_pressed(1) and pressionado == 0:
-            rank.write(string + "$" + str(tempo*100) + "\n")
+            rank.write(string + "$" + str(62-tempo) + "\n")
             rank.close()
             sort()
             ranking(janela)
@@ -269,7 +267,7 @@ def sort():
     for i in range(len(l)):
         l[i] = l[i].split('$')
 
-    l.sort(key=lambda a: int(a[1]), reverse=True)
+    l.sort(key=lambda a: int(a[1]), reverse=False)
 
     for i in range(len(l)):
         l[i] = l[i][0] + "$" + l[i][1]
@@ -304,8 +302,7 @@ def ranking(janela):
     letrinhas = GameImage("images/menu/letrinhas.png")
     letrinhas.x = 30
     letrinhas.y = 30
-    
-    speed = 100
+
 
     f = open("ranking.txt", "r+")
     l = f.readlines()
@@ -323,8 +320,13 @@ def ranking(janela):
         y = 60 + 80
         for i in l:
             i = i.split("$")
+            j = ''
+            for _ in i[1][:-1]:
+                j += _
+            j += " s"
+
             janela.draw_text(i[0], 10, y, size=35, color=(255, 255, 255), bold=True)
-            janela.draw_text(i[1], 240, y, size=40, color=(255, 255, 255), bold=True)
+            janela.draw_text(j, 240, y, size=40, color=(255, 255, 255), bold=True)
             y += 50
         if teclado.key_pressed("ESC"):
             f.close()

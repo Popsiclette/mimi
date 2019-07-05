@@ -1,5 +1,6 @@
 from PPlay.window import *
 from PPlay.gameimage import *
+import jogo as jogo
 
 
 def scrolling(fundo, fundofrente, fundo2, fundo2frente, static):
@@ -64,6 +65,9 @@ def menu(janela):
         scoresbtn.draw()
         quitbtn.draw()
         howbtn.draw()
+
+        if mouse.is_over_object(creditos) and mouse.is_button_pressed(1):
+            jogo.darksouls = True
 
         if mouse.is_over_area((playbtn.x, playbtn.y), (playbtn.x + playbtn.width, playbtn.y + playbtn.height)) and mouse.is_button_pressed(1):
             return 1

@@ -620,7 +620,7 @@ def derrota():
 def vitoria(janela, tempo):
     resetaglobais()
     ranking.appendranking(janela, tempo)
-    return 2
+    return 0
 
 
 '''
