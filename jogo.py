@@ -33,6 +33,7 @@ pegar = 0
 direcao = 1
 olharpulo = 0
 soltoucarne = False
+darksouls = False
 
 
 '''
@@ -577,7 +578,7 @@ def mov_garrafa(garrafas, janela, vidro):
 
 
 def resetaglobais():
-    global pulo, escalada, predio, andar, andaresq, pulei, olhar, chao, olharcao, invertecao, vidas, imune, invertefilhote, inverteu, ini, pegar, direcao, gravidade, olharpulo, soltoucarne
+    global pulo, escalada, predio, andar, andaresq, pulei, olhar, chao, olharcao, invertecao, vidas, imune, invertefilhote, inverteu, ini, pegar, direcao, gravidade, olharpulo, soltoucarne, darksouls
 
     gravidade = 250
     pulo = 0
@@ -598,6 +599,7 @@ def resetaglobais():
     direcao = 1
     olharpulo = 0
     soltoucarne = False
+    darksouls = False
 
 '''
  #######                                              
@@ -764,7 +766,7 @@ def mov_bombardeiro(bombardeiros, mimi):
 
 
 def jogo(janela):
-    global pulo, chao, predio, imune, vidas, pegar
+    global pulo, chao, predio, imune, vidas, pegar, darksouls
 
     teclado = Window.get_keyboard()
 
@@ -878,7 +880,7 @@ def jogo(janela):
     escondido = False
     gatescondido = False
     blink3 = blink4 = 0
-    cont3 = cont4 = 0
+    cont3 = cont4 = cont5 = 0
     blink = blink2 = 0
     cont2 = cont = 0
 
@@ -1063,7 +1065,7 @@ def jogo(janela):
 
     while True:
 
-        if imune:
+        if imune and darksouls:
             droparcarne(carne, mimi)
         if carne.y < janela.height - 100 and pegar == 0:
             carne.y += 1
@@ -1116,12 +1118,17 @@ def jogo(janela):
             blink4 += janela.delta_time()
             cont3 = 0
             cont4 += janela.delta_time()
+        if imune:
+            cont5 += janela.delta_time()
 
         if cont4 >= 0.5:
             mimi.unhide()
             cont4 = 0
             blink3 = 0
             gatescondido = False
+
+        if cont5 >= 3:
+            cont5 = 0
             imune = False
 
         if blink4 > 0.2:

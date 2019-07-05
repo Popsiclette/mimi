@@ -4,6 +4,7 @@ from PPlay.sprite import *
 from random import uniform, choice
 
 pressionado = 0
+
 def scrolling(fundo, fundofrente, fundo2, fundo2frente, static):
     if fundo2.x <= 0 and fundo.x < fundo2.x:
         fundo.x = fundo2.x + fundo2.width
@@ -253,6 +254,7 @@ def appendranking(janela, tempo):
             rank.close()
             sort()
             ranking(janela)
+            return 0
         if not mouse.is_button_pressed(1):
             pressionado = 0
 

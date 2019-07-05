@@ -22,6 +22,7 @@ tema.set_volume(50)
 tema.set_repeat(True)
 tema.play()
 
+
 while True:
     if game_state == 0:
         game_state = menu.menu(janela)
