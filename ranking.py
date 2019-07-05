@@ -4,19 +4,21 @@ from PPlay.sprite import *
 from random import uniform, choice
 
 pressionado = 0
-def scrolling(fundo, fundofrente, fundo2, fundo2frente):
-        if fundo2.x <= 0 and fundo.x < fundo2.x:
-            fundo.x = fundo2.x + fundo2.width
-            fundofrente.x = fundo.x
-        if fundo.x <= 0 and fundo2.x < fundo.x:
-            fundo2.x = fundo.x + fundo.width
-            fundo2frente.x = fundo2.x
-        if fundo.x >= 0 and fundo2.x > fundo.x:
-            fundo2.x = fundo.x - fundo2.width
-            fundo2frente.x = fundo2.x
-        if fundo2.x >= 0 and fundo.x > fundo2.x:
-            fundo.x = fundo2.x - fundo.width
-            fundofrente.x = fundo.x
+def scrolling(fundo, fundofrente, fundo2, fundo2frente, static):
+    if fundo2.x <= 0 and fundo.x < fundo2.x:
+        fundo.x = fundo2.x + fundo2.width
+        fundofrente.x = fundo.x
+    if fundo.x <= 0 and fundo2.x < fundo.x:
+        fundo2.x = fundo.x + fundo.width
+        fundo2frente.x = fundo2.x
+    if fundo.x >= 0 and fundo2.x > fundo.x:
+        fundo2.x = fundo.x - fundo2.width
+        fundo2frente.x = fundo2.x
+    if fundo2.x >= 0 and fundo.x > fundo2.x:
+        fundo.x = fundo2.x - fundo.width
+        fundofrente.x = fundo.x
+    for i in range(len(static)):
+        static[i].x -= 3
 
 
 def appendranking(janela, tempo):
@@ -53,24 +55,19 @@ def appendranking(janela, tempo):
     enter = Sprite("images/keyboard/enter.png")
     space = Sprite("images/keyboard/space.png")
 
+    lua = Sprite("images/lua.png")
+    lua.x = janela.width/2 - lua.width/2
+    lua.y = 20
+
     fundo = GameImage("images/fundoatras.png")
     fundofrente = GameImage("images/fundofrente.png")
     fundo2 = GameImage("images/fundoatras.png")
     fundo2frente = GameImage("images/fundofrente.png")
-
-    lua = Sprite("images/lua.png")
-
-    lua.x = janela.width/2 - lua.width/2
-    lua.y = 20
+    fundo.x = fundofrente.x = 0
+    fundo.y = fundofrente.y = fundo2.y = fundo2frente.y = -215
+    fundo2.x = fundo2frente.x = fundo.width
     static = [fundo, fundofrente, fundo2, fundo2frente]
-    fundo.x = 0
-    fundo.y -= 3168
-    fundofrente.x = 0
-    fundofrente.y -= 268
-    fundo2.x = fundo.width
-    fundo2.y -= 268
-    fundo2frente.x = fundo.width
-    fundo2frente.y -= 268
+
     speed = 100
 
     q.y = janela.height/2
@@ -133,15 +130,13 @@ def appendranking(janela, tempo):
     string = ''
 
     while True:
-        scrolling(fundo, fundofrente, fundo2, fundo2frente)
+        scrolling(fundo, fundofrente, fundo2, fundo2frente, static)
         fundo.draw()
         fundo2.draw()
         lua.draw()
         fundofrente.draw()
         fundo2frente.draw()
 
-        for _ in range(len(static)):
-            static[_].x += speed*janela.delta_time()
         enter.draw()
         space.draw()
 
@@ -290,38 +285,33 @@ def sort():
 
 def ranking(janela):
     teclado = Window.get_keyboard()
+
+    lua = Sprite("images/lua.png")
+    lua.x = janela.width/2 - lua.width/2
+    lua.y = 20
+
     fundo = GameImage("images/fundoatras.png")
     fundofrente = GameImage("images/fundofrente.png")
     fundo2 = GameImage("images/fundoatras.png")
     fundo2frente = GameImage("images/fundofrente.png")
-
-    lua = Sprite("images/lua.png")
-
-    lua.x = janela.width/2 - lua.width/2
-    lua.y = 20
+    fundo.x = fundofrente.x = 0
+    fundo.y = fundofrente.y = fundo2.y = fundo2frente.y = -215
+    fundo2.x = fundo2frente.x = fundo.width
     static = [fundo, fundofrente, fundo2, fundo2frente]
-    fundo.x = 0
-    fundo.y -= 3168
-    fundofrente.x = 0
-    fundofrente.y -= 268
-    fundo2.x = fundo.width
-    fundo2.y -= 268
-    fundo2frente.x = fundo.width
-    fundo2frente.y -= 268
+    
     speed = 100
 
     f = open("ranking.txt", "r+")
     l = f.readlines()
 
     while True:
-        scrolling(fundo, fundofrente, fundo2, fundo2frente)
+        scrolling(fundo, fundofrente, fundo2, fundo2frente, static)
         fundo.draw()
         fundo2.draw()
         lua.draw()
         fundofrente.draw()
         fundo2frente.draw()
-        for i in range(len(static)):
-            static[i].x += speed*janela.delta_time()
+
         y = 60 + 80
         for i in l:
             i = i.split("$")

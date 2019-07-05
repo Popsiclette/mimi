@@ -1046,8 +1046,8 @@ def jogo(janela):
 
     while True:
 
-        if imune:
-            droparcarne(carne, mimi, janela)
+        #if imune:
+            #droparcarne(carne, mimi, janela)
         if carne.y < janela.height - 100 and pegar == 0:
             carne.y += 1
 
