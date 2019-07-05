@@ -298,6 +298,10 @@ def ranking(janela):
     fundo.y = fundofrente.y = fundo2.y = fundo2frente.y = -215
     fundo2.x = fundo2frente.x = fundo.width
     static = [fundo, fundofrente, fundo2, fundo2frente]
+
+    letrinhas = GameImage("images/menu/letrinhas.png")
+    letrinhas.x = 30
+    letrinhas.y = 30
     
     speed = 100
 
@@ -311,6 +315,8 @@ def ranking(janela):
         lua.draw()
         fundofrente.draw()
         fundo2frente.draw()
+
+        letrinhas.draw()
 
         y = 60 + 80
         for i in l:
