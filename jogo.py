@@ -489,23 +489,28 @@ def cria_carro(janela, altura_rua):
  '''
 
 
-def colisao(carros, caos, mimi, garrafas):
+def colisao(carros, caos, mimi, garrafas, dano, vidro, bark):
     global vidas, imune
     for carro in carros:
         if mimi.collided(carro):
+            dano.play()
             vidas -= 1
             if vidas > 0:
                 imune = True
                 return True
     for cao in caos:
         if mimi.collided(cao):
+                bark.play()
+                dano.play()
                 vidas -= 1
                 if vidas > 0:
                     imune = True
                     return True
     for garrafa in garrafas:
         if mimi.collided(garrafa[0]):
+            dano.play()
             garrafas.remove(garrafa)
+            vidro.play()
             vidas -= 1
             if vidas > 0:
                 imune = True
@@ -546,7 +551,7 @@ def criagarrafa(bombardeiro, mimi):
 '''
 
 
-def mov_garrafa(garrafas, janela):
+def mov_garrafa(garrafas, janela, vidro):
     global gravidade
     for garrafa in garrafas:
         garrafa[0].x += garrafa[1]*gravidade*janela.delta_time()
@@ -554,6 +559,7 @@ def mov_garrafa(garrafas, janela):
             garrafa[0].y += 1/garrafa[2]*gravidade*janela.delta_time()
         else:
             garrafas.remove(garrafa)
+            vidro.play()
         if garrafa[2] >= 0.1:
             garrafa[2] -= janela.delta_time()
     return garrafas
@@ -1037,16 +1043,25 @@ def jogo(janela):
     sixhearts.x = janela.width - sixhearts.width - 5
     sevenhearts.x = janela.width - sevenhearts.width - 5
 
-
     miado = Sound("sons/filhotes.ogg")
     miado.set_volume(10)
     miado.set_repeat(0)
 
-    tema = Sound("sons/jogo.ogg")
-    tema.set_volume(50)
-    tema.set_repeat(True)
-    tema.play()
+    bark = Sound("sons/cao.ogg")
+    bark.set_volume(15)
+    bark.set_repeat(0)
 
+    vrumm = Sound("sons/carro.ogg")
+    vrumm.set_volume(10)
+    vrumm.set_repeat(0)
+
+    dano = Sound("sons/dano.ogg")
+    dano.set_volume(40)
+    dano.set_repeat(0)
+
+    vidro = Sound("sons/vidro.ogg")
+    vidro.set_volume(20)
+    vidro.set_repeat(0)
 
     while True:
 
@@ -1077,6 +1092,7 @@ def jogo(janela):
             blink2 = 0
             escondido = False
             carros.append(cria_carro(janela, altura_rua))
+            vrumm.play()
 
         if blink > 0.2:
             exclamacao.hide()
@@ -1175,7 +1191,7 @@ def jogo(janela):
                 carros.remove(carro)
 
         if imune is False:
-            gatescondido = colisao(carros, cao, mimi, garrafas)
+            gatescondido = colisao(carros, cao, mimi, garrafas, dano, vidro, bark)
 
         topodopredio(mimi, janela)
         predioatual(mimi, buildings)
@@ -1275,7 +1291,7 @@ def jogo(janela):
                 if 0 < pessoa[0].x < janela.width:
                     garrafas.append(criagarrafa(pessoa, mimi))
 
-        garrafas = mov_garrafa(garrafas, janela)
+        garrafas = mov_garrafa(garrafas, janela, vidro)
 
         tempogarrafa += janela.delta_time()
 
