@@ -604,7 +604,7 @@ def resetaglobais():
 
 def derrota():
     resetaglobais()
-    return 0
+    return 4
 
 
 def vitoria(janela, tempo):
