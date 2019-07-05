@@ -1,6 +1,7 @@
 from PPlay.window import *
 from PPlay.gameimage import *
 from PPlay.sprite import *
+from PPlay.sound import *
 from random import uniform, choice
 import ranking as ranking
 
@@ -156,7 +157,7 @@ def pegarcarne(carne, mimi, janela):
     return carne
 
 
-def droparcarne(carne, mimi, janela):
+def droparcarne(carne, mimi):
     global pegar, soltoucarne
     if pegar == 1:
         pegar = 0
@@ -178,7 +179,7 @@ def droparcarne(carne, mimi, janela):
 
 def predioatual(mimi, buildings):
     global predio
-    for i in range(len(buildings)):
+    for i in range(19):
         if buildings[i].x - 30 <= mimi.x + mimi.width <= buildings[i].x + buildings[i].width + 30:
             predio = buildings[i]
 
@@ -570,8 +571,9 @@ def mov_garrafa(garrafas, janela):
 
 
 def resetaglobais():
-    global pulo, escalada, predio, andar, andaresq, pulei, olhar, chao, olharcao, invertecao, vidas, imune, invertefilhote, inverteu, ini, pegar, direcao
+    global pulo, escalada, predio, andar, andaresq, pulei, olhar, chao, olharcao, invertecao, vidas, imune, invertefilhote, inverteu, ini, pegar, direcao, gravidade, olharpulo, soltoucarne
 
+    gravidade = 250
     pulo = 0
     escalada = 0
     predio = 0
@@ -581,7 +583,6 @@ def resetaglobais():
     olhar = 0
     chao = 0
     olharcao = 1
-    invertecao = 0
     vidas = 7
     imune = False
     invertefilhote = 1
@@ -589,7 +590,8 @@ def resetaglobais():
     ini = 0
     pegar = 0
     direcao = 1
-
+    olharpulo = 0
+    soltoucarne = False
 
 '''
  #######                                              
@@ -800,7 +802,7 @@ def jogo(janela):
         16 : ["images/casa2.png", 6211],
         17 : ["images/casa3.png", 6604],
         18 : ["images/predio.png", 6865],
-        19 : ["images/casa2.png", 7341],
+        19 : ["images/casa2.png", 7341]
     }
 
     fundo.x = 0
@@ -1042,12 +1044,15 @@ def jogo(janela):
     sevenhearts.x = janela.width - sevenhearts.width - 5
 
 
-    fps = fps2 = segundo = decremento = 0
+    miado = Sound("sons/filhotes.ogg")
+    miado.set_volume(10)
+    miado.set_repeat(0)
+
 
     while True:
 
         if imune:
-            droparcarne(carne, mimi, janela)
+            droparcarne(carne, mimi)
         if carne.y < janela.height - 100 and pegar == 0:
             carne.y += 1
 
@@ -1127,6 +1132,9 @@ def jogo(janela):
         for i in range(len(buildings)):
             buildings[i].draw()
 
+        for i in range(len(lixeiras)):
+            lixeiras[i].draw()
+
         carne = pegarcarne(carne, mimi, janela)
         carne.draw()
         for i in range(len(cao)):
@@ -1147,6 +1155,11 @@ def jogo(janela):
         mimi = mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, cao, carros, filhotes, carne, garrafas, bueiros, lixeiras)
 
         filhotes = mov_filhotes(filhotes)
+
+        if 0 < filhotes[0].x < janela.width:
+            miado.play()
+        else:
+            miado.stop()
 
         for i in range(2):
             filhotes[i].draw()
@@ -1270,21 +1283,8 @@ def jogo(janela):
         mov_bombardeiro(bombardeiro, mimi)
 
         if teclado.key_pressed("ESC"):
+            resetaglobais()
             return 0
-
-        print(fps2)
-
-        segundo += janela.delta_time()
-        fps += 1
-        if segundo >= 1:
-            fps2 = fps
-            fps = 0
-            segundo = 0
-            if decremento != 9:
-                decremento += 1
-
-        for i in range(len(lixeiras)):
-            lixeiras[i].draw()
 
         exclamacao.draw()
         janela.update()
