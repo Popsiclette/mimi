@@ -50,6 +50,10 @@ def menu(janela):
 
     playbtn.y = scoresbtn.y = quitbtn.y = 320
     howbtn.y = 500
+
+    creditos= GameImage("images/menu/credits.png")
+    creditos.x = janela.width - creditos.width - 30
+    creditos.y = janela.height - 30
     #########################
 
     while True:
@@ -65,6 +69,8 @@ def menu(janela):
         scoresbtn.draw()
         quitbtn.draw()
         howbtn.draw()
+
+        creditos.draw()
 
         if mouse.is_over_object(creditos) and mouse.is_button_pressed(1):
             jogo.darksouls = True

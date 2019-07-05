@@ -325,8 +325,8 @@ def ranking(janela):
                 j += _
             j += " s"
 
-            janela.draw_text(i[0], 10, y, size=35, color=(255, 255, 255), bold=True)
-            janela.draw_text(j, 240, y, size=40, color=(255, 255, 255), bold=True)
+            janela.draw_text(i[0], 30, y, size=35, color=(255, 255, 255), bold=True)
+            janela.draw_text(j, 320, y, size=40, color=(255, 255, 255), bold=True)
             y += 50
         if teclado.key_pressed("ESC"):
             f.close()
