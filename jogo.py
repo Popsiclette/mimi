@@ -493,20 +493,20 @@ def colisao(carros, caos, mimi, garrafas):
     global vidas, imune
     for carro in carros:
         if mimi.collided(carro):
-            #vidas -= 1
+            vidas -= 1
             if vidas > 0:
                 imune = True
                 return True
     for cao in caos:
         if mimi.collided(cao):
-                #vidas -= 1
+                vidas -= 1
                 if vidas > 0:
                     imune = True
                     return True
     for garrafa in garrafas:
         if mimi.collided(garrafa[0]):
             garrafas.remove(garrafa)
-            #vidas -= 1
+            vidas -= 1
             if vidas > 0:
                 imune = True
                 return True
@@ -826,12 +826,6 @@ def jogo(janela):
         buildings[i].x = level[i][1]
         buildings[i].y = janela.height - 61 - buildings[i].height
 
-    for i in range(20, 24):
-        buildings.append(Sprite("images/cimaloja.png"))
-        buildings[i].x = upper[tops]
-        buildings[i].y = janela.height - 220 - buildings[i].height
-        tops += 1
-
     predio = buildings[0]
     chao = janela.height - 100
     carne.y = chao
@@ -1047,6 +1041,11 @@ def jogo(janela):
     miado = Sound("sons/filhotes.ogg")
     miado.set_volume(10)
     miado.set_repeat(0)
+
+    tema = Sound("sons/jogo.ogg")
+    tema.set_volume(50)
+    tema.set_repeat(True)
+    tema.play()
 
 
     while True:
