@@ -2,6 +2,7 @@ from PPlay.window import *
 from PPlay.gameimage import *
 from PPlay.sprite import *
 from random import uniform, choice
+import ranking as ranking
 
 '''
   #####                                     
@@ -30,6 +31,8 @@ ini = 0
 pegar = 0
 direcao = 1
 olharpulo = 0
+soltoucarne = False
+
 
 '''
  #     #                                                                      
@@ -77,9 +80,9 @@ def mov_mimi(mimi, teclado, speed, janela):
                 mimi.set_total_duration(800)
                 mimi.x = aux
                 mimi.y = auy
-                pulo -= 500
+                pulo -= 550
         else:
-            pulo += 500*janela.delta_time()
+            pulo += 550*janela.delta_time()
 
         if teclado.key_pressed("RIGHT") and (mimi.x < janela.width/2 or (direcao == 0 and mimi.x + mimi.width < janela.width) or (direcao == -1 and mimi.x + mimi.width < janela.width)) and olharpulo != 1:
             if andar == 0 and pulo == 0:
@@ -144,20 +147,22 @@ def mov_mimi(mimi, teclado, speed, janela):
 
 
 def pegarcarne(carne, mimi, janela):
-    global pegar, imune
+    global pegar, imune, soltoucarne
     if mimi.collided(carne) and imune is False:
         pegar = 1
         carne.y = 40
         carne.x = janela.width - carne.height
+        soltoucarne = False
     return carne
 
 
 def droparcarne(carne, mimi, janela):
-    global pegar
+    global pegar, soltoucarne
     if pegar == 1:
         pegar = 0
         carne.y = mimi.y
         carne.x = mimi.x
+        soltoucarne = True
 
 
 '''
@@ -364,6 +369,9 @@ def mov_cenario(mimi, teclado, static, bombardeiro, buildings, speed, janela, ca
 
     if pegar == 1 and ini != 0:
         direcao = -1
+
+    if pegar == 0 and soltoucarne:
+        direcao = 0
 
     return mimi
 
@@ -599,8 +607,9 @@ def derrota():
     return 0
 
 
-def vitoria():
+def vitoria(janela, tempo):
     resetaglobais()
+    ranking.appendranking(janela, tempo)
     return 2
 
 
@@ -1227,7 +1236,7 @@ def jogo(janela):
 
         for i in range(2):
             if mimi.collided(filhotes[i]) and pegar == 1:
-                return vitoria()
+                return vitoria(janela, len(temp_repete))
         if vidas == 0:
             return derrota()
         elif vidas == 1:

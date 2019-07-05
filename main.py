@@ -2,10 +2,11 @@ from PPlay.window import *
 
 import menu as menu
 import jogo as jogo
+import ranking as ranking
 
 janela = Window(1000,600)
 janela.set_title("Mimi")
-game_state = 1
+game_state = 3
 dificuldade = 1
 
 while True:
@@ -15,5 +16,7 @@ while True:
         game_state = jogo.jogo(janela)
     if game_state == 2:
         game_state = jogo.jogo(janela)
+    if game_state == 3:
+        game_state = ranking.ranking(janela)
 
     janela.update()
