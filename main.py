@@ -5,7 +5,7 @@ import jogo as jogo
 import ranking as ranking
 import tutorial as tutorial
 import gameover as gameover
-from PPlay.Sound import *
+from PPlay.sound import *
 
 janela = Window(1000,600)
 janela.set_title("mimi")
