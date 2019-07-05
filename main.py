@@ -4,9 +4,10 @@ import menu as menu
 import jogo as jogo
 import ranking as ranking
 import tutorial as tutorial
+import gameover as gameover
 
 janela = Window(1000,600)
-janela.set_title("Mimi")
+janela.set_title("mimi")
 game_state = 3
 
 
@@ -24,5 +25,7 @@ while True:
         game_state = tutorial.tutorial(janela)
     if game_state == 3:
         game_state = ranking.ranking(janela)
+    if game_state == 4:
+        game_state = gameover.gameover(janela)
 
     janela.update()
