@@ -1,27 +1,5 @@
 from PPlay.window import *
 from PPlay.gameimage import *
-from PPlay.sprite import *
-from random import uniform, choice
-
-gravidade = 250
-pulo = 0
-escalada = 0
-predio = 0
-andar = 0
-andaresq = 0
-pulei = 0
-olhar = 0
-chao = 0
-olharcao = 1
-invertecao = 0
-vidas = 7
-imune = False
-invertefilhote = 1
-inverteu = 0
-ini = 0
-pegar = 0
-direcao = 1
-olhapulo = 0
 
 
 def scrolling(fundo, fundofrente, fundo2, fundo2frente, static):
