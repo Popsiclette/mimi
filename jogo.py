@@ -714,7 +714,7 @@ def colisao_bueiro(bueiros, mimi):
     global vidas, imune
     for bueiro in bueiros:
         if mimi.collided(bueiro):
-                #vidas -= 1
+                vidas -= 1
                 if vidas >= 0:
                     imune = True
                     return True
@@ -822,8 +822,6 @@ def jogo(janela):
 
     altura_rua = janela.height - 340
     buildings = []
-    tops = 0
-    upper = [932, 2764, 4542, 6688]
 
     garrafas = []
 
@@ -870,7 +868,7 @@ def jogo(janela):
     lua.y = 20
 
     tempo_car = 0
-    rand_car = uniform(2, 6)
+    rand_car = 10
 
     tempo_bueiro = 0
     tempo_geiser = 0
@@ -1235,7 +1233,7 @@ def jogo(janela):
 
         if tempo_car >= rand_car:
             tempo_car = 0
-            rand_car = uniform(2, 6)
+            rand_car = uniform(4, 8)
             escondido = True
 
         for barra in temp_bar_repete:
