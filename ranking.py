@@ -310,7 +310,7 @@ def ranking(janela):
     fundo2frente.y -= 268
     speed = 100
 
-    f = open("ranking.txt", "r")
+    f = open("ranking.txt", "r+")
     l = f.readlines()
 
     while True:
