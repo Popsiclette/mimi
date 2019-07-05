@@ -493,20 +493,20 @@ def colisao(carros, caos, mimi, garrafas):
     global vidas, imune
     for carro in carros:
         if mimi.collided(carro):
-            #vidas -= 1
+            vidas -= 1
             if vidas > 0:
                 imune = True
                 return True
     for cao in caos:
         if mimi.collided(cao):
-                #vidas -= 1
+                vidas -= 1
                 if vidas > 0:
                     imune = True
                     return True
     for garrafa in garrafas:
         if mimi.collided(garrafa[0]):
             garrafas.remove(garrafa)
-            #vidas -= 1
+            vidas -= 1
             if vidas > 0:
                 imune = True
                 return True
@@ -1051,13 +1051,8 @@ def jogo(janela):
 
     while True:
 
-<<<<<<< HEAD
         if imune:
             droparcarne(carne, mimi)
-=======
-        #if imune:
-            #droparcarne(carne, mimi, janela)
->>>>>>> 3b88ce36ab0c35bd5a7ac54262e4a893b803468d
         if carne.y < janela.height - 100 and pegar == 0:
             carne.y += 1
 
