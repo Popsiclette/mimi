@@ -1,5 +1,1 @@
-<<<<<<< HEAD
 IGOR CRUZ$2400
-=======
-NIASI$900
->>>>>>> 3b88ce36ab0c35bd5a7ac54262e4a893b803468d
